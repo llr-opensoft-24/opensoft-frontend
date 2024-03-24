@@ -1,0 +1,44 @@
+.login {
+    height: 100vh;
+    overflow: hidden;
+  }
+   
+.login .holder {
+    padding: 60px 68px 40px;
+    background-color: black;
+    min-height: 460px;
+    width: 450px;
+    position: absolute;
+    z-index: 1;
+    margin-top: 100px;
+    left: calc(50% - 225px);
+  }
+  
+  .login .holder input {
+    background-color: #333;
+    border: 0;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  
+  .login .shadow {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .login img {
+    max-width: 100%;
+  }
+  .login .login_form_other .login_signup_now {
+    color: #737373;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 16px;
+  }
+  
+  .login .login_form_other .login_signup_now a {
+    color: #fff;
+  }
