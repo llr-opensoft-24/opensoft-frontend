@@ -1,3 +1,6 @@
+.loginemail::placeholder, .loginpwd::placeholder{
+  color: white;
+}
 .login {
     height: 100vh;
     overflow: hidden;

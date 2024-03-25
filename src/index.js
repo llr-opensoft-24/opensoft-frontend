@@ -5,6 +5,8 @@ import store from './redux/store';
 //import '../node_modules/bootstrap-scss/bootstrap.scss';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -15,6 +17,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
     <Provider store={store}>
+      <ToastContainer />
       <App />
       </Provider>
     </BrowserRouter>

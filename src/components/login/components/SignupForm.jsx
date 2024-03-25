@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { loginSuccess, loginFailure, setToken } from '../../redux/actions';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router';
 import axios from 'axios';
-import Styles from './Login.module.css';
+import Styles from '../Login.module.css';
 import { toast } from 'react-toastify';
-import LoginForm from './components/LoginForm';
-import SignupForm from './components/SignupForm';
-const Login = () => {
+
+const SignupForm = () => {
+
   const navigate = useNavigate();
   const [text , setText] =useState('');
   const [email, setEmail] = useState('');
@@ -17,10 +15,25 @@ const Login = () => {
   const [passwordValid, setPasswordValid] = useState(true);
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(true);
   const [isUserExist, setIsUserExist] = useState(false);
-  const [isSigningUp, setIsSigningUp] = useState(false);
-  const dispatch = useDispatch();
-  
 
+  const textOnChangeHandler = (e) => {
+    setText(e.target.value);
+  };
+
+  const emailOnChangeHandler = (e) => {
+    setEmail(e.target.value);
+    setEmailValid(true);
+  };
+
+  const passwordOnChangeHandler = (e) => {
+    setPassword(e.target.value);
+    setPasswordValid(true);
+  };
+
+  const confirmPasswordOnChangeHandler = (e) => {
+    setConfirmPassword(e.target.value);
+    setConfirmPasswordValid(true);
+  };
 
   const registerUser = async (e) => {
     e.preventDefault();
@@ -84,31 +97,45 @@ const Login = () => {
   };
 
   return (
-    <div className={Styles.login}>
-      <div className={Styles.holder}>
-        <h1 className="text-white text-center mb-4">{isSigningUp ? 'Sign Up' : 'Sign In'}</h1>
-        {!isSigningUp && <LoginForm/>}
-        {isSigningUp && <SignupForm/>}
-        <br />
-        <br />
-        <div className={Styles.login_form_other}>
-          <div className={Styles.login_signup_now}>
-            {isSigningUp ? 'Existing User' : 'New to flixpedia?'} &nbsp;
-            <button className="" onClick={() => setIsSigningUp(!isSigningUp)}>
-              {isSigningUp ? 'Sign In' : 'Sign up now'}
-            </button>
-            .
-          </div>
-        </div>
-      </div>
-      <div className={Styles.shadow}></div>
-      <img
-        className="concord-img vlv-creative"
-        src="https://assets.nflxext.com/ffe/siteui/vlv3/6e32b96a-d4be-4e44-a19b-1bd2d2279b51/ee068656-14b9-4821-89b4-53b4937d9f1c/IN-en-20220516-popsignuptwoweeks-perspective_alpha_website_small.jpg"
-        alt=""
-      />
+    <div>
+       <form>
+          <input
+            className="form-control mb-3"
+            value={text}
+            onChange={textOnChangeHandler}
+            type="text"
+            placeholder="username"
+          />
+          <input
+            className="form-control mt-3 mb-0"
+            value={email}
+            onChange={emailOnChangeHandler}
+            type="email"
+            placeholder="Email"
+          />
+          {!emailValid && <p className="mb-0 p-1 text-danger">Email is invalid/blank</p>}
+          <input
+            className="form-control mt-3 mb-0"
+            value={password}
+            onChange={passwordOnChangeHandler}
+            type="password"
+            placeholder="Password"
+          />
+          {!passwordValid && <p className="mb-0 p-1 text-danger">Password is invalid/blank</p>}
+          <input
+            className="form-control mt-3 mb-0"
+            value={confirmPassword}
+            onChange={confirmPasswordOnChangeHandler}
+            type="password"
+            placeholder="Confirm Password"
+          />
+          {!confirmPasswordValid && <p className="p-1 mb-0 text-danger">Passwords do not match</p>}
+          <button className="btn btn-danger w-100 mt-4" onClick={registerUser}>
+            Register
+          </button>
+        </form>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default SignupForm
