@@ -1,47 +1,101 @@
-.loginemail::placeholder, .loginpwd::placeholder{
+.loginemail::placeholder,
+.signupusername::placeholder,
+.signupemail::placeholder,
+.signuppwd::placeholder,
+.signupcnfpwd::placeholder,
+.loginpwd::placeholder {
   color: white;
 }
+
 .login {
-    height: 100vh;
-    overflow: hidden;
-  }
-   
+  height: 100vh;
+  background: url('https://assets.nflxext.com/ffe/siteui/vlv3/6e32b96a-d4be-4e44-a19b-1bd2d2279b51/ee068656-14b9-4821-89b4-53b4937d9f1c/IN-en-20220516-popsignuptwoweeks-perspective_alpha_website_small.jpg') no-repeat center center fixed;
+  background-size: cover;
+  overflow: hidden;
+  position: relative; 
+}
+
 .login .holder {
-    padding: 60px 68px 40px;
-    background-color: black;
-    min-height: 460px;
-    width: 450px;
-    position: absolute;
-    z-index: 1;
-    margin-top: 100px;
-    left: calc(50% - 225px);
+  padding: 6vw; 
+  background-color: black;
+  min-height: 460px;
+  width: 450px;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+}
+
+.login .holder input {
+  background-color: #333;
+  border: 0;
+  margin-bottom: 20px;
+  color: #fff;
+  width: 100%; 
+  padding: 10px; 
+}
+
+.login .shadow {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.login img {
+  max-width: 100%;
+  background-size: cover;
+}
+
+.login .login_form_other .login_signup_now {
+  color: #737373;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 16px;
+}
+
+.login .login_form_other .login_signup_now button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.closeButton:hover {
+  color: #ccc; 
+}
+
+.passwordVisibilityBtn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+
+
+@media (max-width: 600px) {
+  .login .holder {
+    padding: 8vw;
+    width: 92%;
+    margin-left: 15px; 
+    top: 10%;
+    max-width: none; 
+    height: auto;
+    left: 0; 
+    transform: none; 
   }
-  
-  .login .holder input {
-    background-color: #333;
-    border: 0;
-    margin-bottom: 20px;
-    color: #fff;
-  }
-  
-  .login .shadow {
-    background-color: rgba(0, 0, 0, 0.4);
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .login img {
-    max-width: 100%;
-  }
-  .login .login_form_other .login_signup_now {
-    color: #737373;
-    font-size: 16px;
-    font-weight: 500;
-    margin-top: 16px;
-  }
-  
-  .login .login_form_other .login_signup_now a {
-    color: #fff;
-  }
+}
