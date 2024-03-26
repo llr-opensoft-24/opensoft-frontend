@@ -12,6 +12,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
+  const [showPassword, setShowPassword] = useState(false); // State to track password visibility
   const dispatch = useDispatch();
 
   const emailOnChangeHandler = (e) => {
@@ -22,6 +23,10 @@ const LoginForm = () => {
   const passwordOnChangeHandler = (e) => {
     setPassword(e.target.value);
     setPasswordValid(true);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const ctaClickHandler = async (e) => {
@@ -66,6 +71,7 @@ const LoginForm = () => {
       dispatch(loginFailure(error.response.data.message));
     }
   };
+
   const validateEmail = (value) => {
     return value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
   };
@@ -84,13 +90,20 @@ const LoginForm = () => {
         {!emailValid && (
           <p className="m-0 p-1 text-danger">Email is invalid/blank</p>
         )}
-        <input
-          className={`form-control mt-3 mb-0 ${Styles.loginpwd}`}
-          value={password}
-          onChange={passwordOnChangeHandler}
-          type="password"
-          placeholder="Password"
-        />
+        <div className="input-group mt-3">
+          <input
+            className={`form-control ${Styles.loginpwd}`}
+            value={password}
+            onChange={passwordOnChangeHandler}
+            type={showPassword ? "text" : "password"} 
+            placeholder="Password"
+          />
+          <div className="input-group-append">
+            <button className={`btn btn-outline-secondary ${Styles.passwordVisibilityBtn}`} type="button" onClick={togglePasswordVisibility}>
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
+        </div>
         {!passwordValid && (
           <p className="text-danger p-1 mb-0">Password is invalid/blank</p>
         )}

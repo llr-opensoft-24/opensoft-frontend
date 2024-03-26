@@ -7,15 +7,22 @@ import Styles from './Login.module.css';
 import { toast } from 'react-toastify';
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
+
 const Login = () => {
   const [isSigningUp, setIsSigningUp] = useState(false);
+  const navigate = useNavigate();
+
+  const handleCrossClick = () => {
+    navigate('/');
+  };
 
   return (
     <div className={Styles.login}>
       <div className={Styles.holder}>
+        <button className={Styles.closeButton} onClick={handleCrossClick}>×</button>
         <h1 className="text-white text-center mb-4">{isSigningUp ? 'Sign Up' : 'Sign In'}</h1>
-        {!isSigningUp && <LoginForm/>}
-        {isSigningUp && <SignupForm/>}
+        {!isSigningUp && <LoginForm />}
+        {isSigningUp && <SignupForm />}
         <br />
         <br />
         <div className={Styles.login_form_other}>
@@ -29,11 +36,6 @@ const Login = () => {
         </div>
       </div>
       <div className={Styles.shadow}></div>
-      <img
-        className="concord-img vlv-creative"
-        src="https://assets.nflxext.com/ffe/siteui/vlv3/6e32b96a-d4be-4e44-a19b-1bd2d2279b51/ee068656-14b9-4821-89b4-53b4937d9f1c/IN-en-20220516-popsignuptwoweeks-perspective_alpha_website_small.jpg"
-        alt=""
-      />
     </div>
   );
 };

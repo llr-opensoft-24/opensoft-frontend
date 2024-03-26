@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Styles from '../Login.module.css';
 
 const SignupForm = () => {
 
@@ -98,14 +99,14 @@ const SignupForm = () => {
     <div>
        <form>
           <input
-            className="form-control mb-3"
+            className={`form-control mb-3 ${Styles.signupusername}`}
             value={text}
-            onChange={textOnChangeHandler}
+            onChange={textOnChangeHandler} 
             type="text"
             placeholder="username"
           />
           <input
-            className="form-control mt-3 mb-0"
+            className={`form-control mt-3 mb-0 ${Styles.signupemail}`}
             value={email}
             onChange={emailOnChangeHandler}
             type="email"
@@ -113,15 +114,15 @@ const SignupForm = () => {
           />
           {!emailValid && <p className="mb-0 p-1 text-danger">Email is invalid/blank</p>}
           <input
-            className="form-control mt-3 mb-0"
+            className={`form-control mt-3 mb-0 ${Styles.signuppwd}`}
             value={password}
             onChange={passwordOnChangeHandler}
             type="password"
             placeholder="Password"
           />
-          {!passwordValid && <p className="mb-0 p-1 text-danger">Password is invalid/blank</p>}
+          {!passwordValid && <p className="mb-0 p-1 text-danger ">Password is invalid/blank</p>}
           <input
-            className="form-control mt-3 mb-0"
+            className={`form-control mt-3 mb-0 ${Styles.signupcnfpwd}`}
             value={confirmPassword}
             onChange={confirmPasswordOnChangeHandler}
             type="password"
