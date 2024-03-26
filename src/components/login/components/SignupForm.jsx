@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router';
 import axios from 'axios';
-import Styles from '../Login.module.css';
 import { toast } from 'react-toastify';
 
 const SignupForm = () => {
@@ -14,7 +13,6 @@ const SignupForm = () => {
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(true);
-  const [isUserExist, setIsUserExist] = useState(false);
 
   const textOnChangeHandler = (e) => {
     setText(e.target.value);
@@ -51,7 +49,7 @@ const SignupForm = () => {
     }
 
     try {
-      const response = await axios.post('http://10.145.54.6:8080/register', {
+      const response = await axios.post('http://127.0.0.1:8080/register', {
         username: text,
         email: email,
         password: password
