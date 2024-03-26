@@ -1,16 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import flixpediaLogo from '../../assets/flixpedia.png';
-import Styles from './header.module.css';
+import flixpediaLogo from "../../assets/flixpedia.png";
+import Styles from "./header.module.css";
+import SearchResults from "./components/SearchResults";
+import axios from "axios";
 
 const Header = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [searchResults, setSearchResults] = useState([]); // [ {id: 1, title: "movie1"}, {id: 2, title: "movie2"}
   const clickLogout = (e) => {
     e.preventDefault();
-    localStorage.setItem('token', ''); 
-    navigate('/login');
+    localStorage.setItem("token", "");
+    navigate("/login");
+  };
+
+  useEffect(() => {
+    const getResponse = async () => {
+      try {
+        if (searchTerm.length > 2) {
+          const response = await axios.get(`/search?q=${searchTerm}`, {
+            headers: {
+              Authorization: `${localStorage.getItem("token")}`,
+            },
+          });
+          if (response.data.data) {
+            console.log(response.data.data);
+            setSearchResults(response.data.data);
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getResponse();
+  }, [searchTerm]);
+
+  const onSearch = (e) => {
+    setSearchTerm(e.target.value);
   };
 
   return (
@@ -25,33 +53,32 @@ const Header = () => {
           </div>
 
           {/* Center section */}
-          <div className=" d-none d-md-block flex-grow-1">
-            <form className="d-flex justify-content-center align-items-center">
+          <div className=" d-none d-md-block flex-grow-1 px-4">
+            <form className="d-flex justify-content-center align-items-center ">
               <input
-                className="form-control"
+                className="form-control position-relative"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                style={{ width: "500px" }} 
+                onChange={onSearch}
+                style={{ width: "500px" }}
               />
             </form>
+            <SearchResults searchResults={searchResults}/>
           </div>
-
           {/* Right section */}
           <div className="d-flex">
-            
             <div className="sign-in-button">
-              <button className="btn btn-danger" onClick={clickLogout} >Logout</button>
+              <button className="btn btn-danger" onClick={clickLogout}>
+                Logout
+              </button>
             </div>
           </div>
         </div>
       </nav>
     </header>
-  )
-}
+  );
+};
 
 export default Header;
-
-

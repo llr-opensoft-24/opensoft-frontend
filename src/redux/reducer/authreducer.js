@@ -3,6 +3,7 @@ import { LOGIN_SUCCESS, LOGOUT, LOGIN_FAILURE, SET_TOKEN } from "../actions/inde
 const initialState = {
   isLoggedIn: false,
   token: null,
+  userData: null,
   error: null,
 };
 
@@ -13,6 +14,7 @@ function authReducer(state = initialState, action) {
         ...state,
         isLoggedIn: true,
         error: null,
+        userData: action.userData,
       };
     case LOGOUT:
       return {
