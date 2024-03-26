@@ -26,7 +26,11 @@
   padding: 0.75rem;
   max-height: 300px;
   overflow-y: scroll;
+  top: 100%;
 }
 .movie_poster{
   border-radius: 4px;
+}
+.search_box::-webkit-scrollbar {
+  width: 50px;
 }

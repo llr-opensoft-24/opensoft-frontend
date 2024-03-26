@@ -64,8 +64,8 @@ const Header = () => {
                 onChange={onSearch}
                 style={{ width: "500px" }}
               />
+              {searchTerm.length>2 && <SearchResults searchResults={searchResults} />}
             </form>
-            <SearchResults searchResults={searchResults}/>
           </div>
           {/* Right section */}
           <div className="d-flex">
