@@ -12,7 +12,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
-  const [isUserExist, setIsUserExist] = useState(false);
   const dispatch = useDispatch();
 
   const emailOnChangeHandler = (e) => {
@@ -37,7 +36,7 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await axios.post('http://10.145.54.6:8080/login', {
+      const response = await axios.post('http://127.0.0.1:8080/login', {
         email: email,
         password: password
       });
@@ -56,9 +55,6 @@ const LoginForm = () => {
         navigate('/dashboard');
       }
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        setIsUserExist(true);
-      }
       toast.error(error.response.data.message,{
         position: "bottom-right",
         autoClose: 2000,
