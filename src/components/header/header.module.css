@@ -19,3 +19,18 @@
   width: 100px; 
   height: auto; 
 }
+.search_box{
+  width: 500px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 0.75rem;
+  max-height: 300px;
+  overflow-y: scroll;
+  top: 100%;
+}
+.movie_poster{
+  border-radius: 4px;
+}
+.search_box::-webkit-scrollbar {
+  width: 50px;
+}
