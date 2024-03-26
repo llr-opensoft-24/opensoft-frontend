@@ -3,8 +3,9 @@ export const LOGOUT = "LOGOUT";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const SET_TOKEN = "SET_TOKEN";
 
-export const loginSuccess = () => ({ 
-    type: LOGIN_SUCCESS 
+export const loginSuccess = (data) => ({ 
+    type: LOGIN_SUCCESS,
+    userData: data
 });
 export const logout = () => ({ 
     type: LOGOUT 
