@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import showIcon from '../../../assets/showicon.png';
+import hideIcon from '../../../assets/hideicon.png';
 import Styles from '../Login.module.css';
 
 const SignupForm = () => {
@@ -13,6 +15,7 @@ const SignupForm = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(true);
 
   const textOnChangeHandler = (e) => {
@@ -33,6 +36,11 @@ const SignupForm = () => {
     setConfirmPassword(e.target.value);
     setConfirmPasswordValid(true);
   };
+  const togglePasswordVisibility = (e) => {
+    e.preventDefault(); 
+    e.stopPropagation();
+    setShowPassword(!showPassword);
+  };
 
   const registerUser = async (e) => {
     e.preventDefault();
@@ -50,7 +58,7 @@ const SignupForm = () => {
     }
 
     try {
-      const response = await axios.post('http://10.145.54.6:8080/register', {
+      const response = await axios.post('http://10.145.80.49:8080/register', {
         username: text,
         email: email,
         password: password
@@ -113,13 +121,20 @@ const SignupForm = () => {
             placeholder="Email"
           />
           {!emailValid && <p className="mb-0 p-1 text-danger">Email is invalid/blank</p>}
+          <div className="input-group ">
           <input
             className={`form-control mt-3 mb-0 ${Styles.signuppwd}`}
             value={password}
             onChange={passwordOnChangeHandler}
             type="password"
             placeholder="Password"
-          />
+          /> 
+          <div className={Styles.input_group_append}>
+            
+            {showPassword ? <img className={Styles.visiblity_img} src={showIcon} alt="Hide" onClick={(e) => togglePasswordVisibility(e)} /> : <img className={Styles.visiblity_img} src={hideIcon} alt="Show" onClick={(e) => togglePasswordVisibility(e)} />}
+  
+            </div>
+          </div>
           {!passwordValid && <p className="mb-0 p-1 text-danger ">Password is invalid/blank</p>}
           <input
             className={`form-control mt-3 mb-0 ${Styles.signupcnfpwd}`}

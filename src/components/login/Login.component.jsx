@@ -23,11 +23,12 @@ const Login = () => {
         <h1 className="text-white text-center mb-4">{isSigningUp ? 'Sign Up' : 'Sign In'}</h1>
         {!isSigningUp && <LoginForm />}
         {isSigningUp && <SignupForm />}
+        
         <br />
         <br />
         <div className={Styles.login_form_other}>
           <div className={Styles.login_signup_now}>
-            {isSigningUp ? 'Existing User' : 'New to Flixpedia?'}
+            {isSigningUp ? 'Existing User ? ' : 'New to Flixpedia? '}
             <button className="" onClick={() => setIsSigningUp(!isSigningUp)}>
               {isSigningUp ? 'Sign In' : 'Sign up now'}
             </button>

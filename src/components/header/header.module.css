@@ -34,3 +34,7 @@
 .search_box::-webkit-scrollbar {
   width: 50px;
 }
+
+.plans{
+  margin-right: 10px;
+}

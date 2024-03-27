@@ -68,7 +68,14 @@ const Header = () => {
             </form>
           </div>
           {/* Right section */}
+          
           <div className="d-flex">
+              <div className={Styles.plans}>
+              <button className="btn btn-danger" onClick={clickLogout}>
+                Plans
+              </button>
+            </div>
+            
             <div className="sign-in-button">
               <button className="btn btn-danger" onClick={clickLogout}>
                 Logout
