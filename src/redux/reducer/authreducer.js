@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGOUT, LOGIN_FAILURE, SET_TOKEN } from "../actions/index";
+import { LOGIN_SUCCESS, LOGOUT, LOGIN_FAILURE, SET_TOKEN, SET_USERDATA } from "../actions/index";
 
 const initialState = {
   isLoggedIn: false,
@@ -13,9 +13,13 @@ function authReducer(state = initialState, action) {
       return {
         ...state,
         isLoggedIn: true,
-        error: null,
-        userData: action.userData,
+        error: null
       };
+    case SET_USERDATA:
+      return{
+        ...state,
+        userData: action.userData
+      }
     case LOGOUT:
       return {
         ...state,
