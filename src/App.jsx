@@ -7,6 +7,8 @@ import RegisterRoute from './routes/register/register.route';
 import LoginRoute from './routes/login/login.route';
 import OtpRoute from './routes/otp/otp.route';
 import FpForm from './components/login/components/ForgotPasswordForm';
+import PaymentRoute from './routes/payment/payment.route';
+
 
 const App = () => {
 
@@ -19,6 +21,7 @@ const App = () => {
       <Route path='dashboard' element={<DashboardRoute />} />
       <Route path='otp' element={<OtpRoute/>} />
       <Route path='forgotpassword' element={<FpForm/>}/>
+      <Route path='payment' element={<PaymentRoute/>}/>
     </Routes>
   );
 }
