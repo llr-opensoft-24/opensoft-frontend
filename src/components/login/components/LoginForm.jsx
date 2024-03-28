@@ -50,9 +50,6 @@ const LoginForm = () => {
         password: password
       });
 
-
-
-      // console.log(response);
       if(response.data.data.token){
         dispatch(loginSuccess(response.data.data.user_data));
         dispatch(setToken(response.data.data.token));
@@ -71,8 +68,6 @@ const LoginForm = () => {
       {
         console.log(response.data.data.user_data);
         dispatch(setData(response.data.data.user_data));
-        // dispatch(setToken(response.data.data.token));
-        // localStorage.setItem("token",response.data.data.token);
         toast.success(response.data.message
           ,{
           position: "bottom-right",
@@ -101,6 +96,9 @@ const LoginForm = () => {
     return value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
   };
 
+  const handleForgotPassword = () => {
+    navigate('/forgotpassword');
+  };
 
   return (
     <div>
@@ -124,18 +122,25 @@ const LoginForm = () => {
             placeholder="Password"
           />
           <div className={Styles.input_group_append}>
-            
-          {showPassword ? <img className={Styles.visiblity_img} src={showIcon} alt="Hide" onClick={(e) => togglePasswordVisibility(e)} /> : <img className={Styles.visiblity_img} src={hideIcon} alt="Show" onClick={(e) => togglePasswordVisibility(e)} />}
-
+            {showPassword ? 
+              <img className={Styles.visiblity_img} src={showIcon} alt="Hide" onClick={(e) => togglePasswordVisibility(e)} /> : 
+              <img className={Styles.visiblity_img} src={hideIcon} alt="Show" onClick={(e) => togglePasswordVisibility(e)} />
+            }
           </div>
         </div>
         {!passwordValid && (
           <p className="text-danger p-1 mb-0">Password is invalid/blank</p>
         )}
+    
+        
         <button className="btn btn-danger w-100 mt-4" onClick={ctaClickHandler}>
           Sign In
         </button>
-        <br />
+        <div className="d-flex justify-content-end ">
+        <button className="btn text-white mt-2 text-end" onClick={handleForgotPassword}>
+          Forgot Password?
+        </button>
+        </div>
       </form>
     </div>
   );

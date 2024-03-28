@@ -1,14 +1,14 @@
 import { Fragment } from "react";
 import Header from "../../components/header/header.component.jsx";
-import FpForm from "../../components/login/components/forgetpassword.component.jsx";
+import FpForm from "../../components/login/components/ForgotPasswordForm.jsx";
 
-const OtpRoute = () => {
+const FpRoute = () => {
   return (
     <Fragment>
       <Header/>
-      <Otp/>
+      <FpForm/>
     </Fragment>
   );
 };
 
-export default OtpRoute;
+export default FpRoute;

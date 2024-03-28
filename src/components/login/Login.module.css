@@ -54,6 +54,8 @@
   font-size: 16px;
   font-weight: 500;
   margin-top: 16px;
+  text-align: center;
+
 }
 
 .login .login_form_other .login_signup_now button {
@@ -61,6 +63,7 @@
   border: none;
   color: white;
   cursor: pointer;
+  
 }
 
 .closeButton {
@@ -85,8 +88,8 @@
 }
 
 .visiblity_img{
-  width: auto;
   height: 30px;
+  width: auto;
   cursor: pointer;
 }
 
@@ -104,6 +107,24 @@
   right: 10px;
   transform: translateY(-50%); 
   z-index: 8;
+}
+.input_group_append1{
+  position: absolute;
+  top: 63%; 
+  right: 10px;
+  transform: translateY(-50%); 
+  z-index: 8;
+}
+.input_group_append2{
+  position: absolute;
+  top: 63%;
+  right: 10px;
+  transform: translateY(-50%);
+  z-index: 8;
+}
+.signup_img{
+  height: 30px;
+  width: auto;
 }
 
 @media (max-width: 600px) {
