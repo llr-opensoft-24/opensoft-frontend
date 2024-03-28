@@ -30,7 +30,17 @@
 }
 .movie_poster{
   border-radius: 4px;
+  
 }
 .search_box::-webkit-scrollbar {
   width: 50px;
+}
+
+.search_list{
+  width: 100%;
+  padding: 0 0.5rem;
+}
+
+.search_list:hover{
+  background-color: #ded6d6;
 }

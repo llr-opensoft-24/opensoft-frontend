@@ -18,8 +18,8 @@ const Header = () => {
   useEffect(() => {
     const getResponse = async () => {
       try {
-        if (searchTerm.length > 2) {
-          const response = await axios.get(`/search?q=${searchTerm}`, {
+        if (searchTerm.length > 1) {
+          const response = await axios.get(`http://10.145.80.49:8080/search?q=${searchTerm}`, {
             headers: {
               Authorization: `${localStorage.getItem("token")}`,
             },
@@ -64,7 +64,7 @@ const Header = () => {
                 onChange={onSearch}
                 style={{ width: "500px" }}
               />
-              {searchTerm.length>2 && <SearchResults searchResults={searchResults} />}
+              {searchTerm.length>=2 && <SearchResults searchResults={searchResults} />}
             </form>
           </div>
           {/* Right section */}

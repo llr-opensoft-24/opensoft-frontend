@@ -1,59 +1,74 @@
-import React from 'react';
-import filmData from '../../assets/film.json';
-import styles from './list.module.css';
-
+import React, { useEffect } from "react";
+// import styles from './list.module.css';
+import { Link } from "react-router-dom";
+import img from "../../assets/img.webp";
+import Styles from "./list.module.css";
+import axios from "axios";
 
 const Movies = () => {
+  const [filmData, setFilmData] = React.useState([]);
+  useEffect(() => {
+    const getAllMovies = async () => {
+      try {
+        const response = await axios.get(`http://10.145.80.49:8080/movies`, {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        });
+        if (response.data && response.data.data) {
+          setFilmData(response.data.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAllMovies();
+  }, []);
   return (
-    <div className="container">
-      <div className={`row ${styles.row}`}>
-        {filmData.map((film, index) => (
-          <div key={index} className="col-md-2 mb-2">
-            <div className="card">
-              <img src={film.Poster} className="card-img-top poster-image" alt={film.Title} />
+    <>
+      <div className={Styles.m_container}>
+        <h1 className={Styles.m_heading}>Recommended Movies</h1>
+        <div className={Styles.movie_page}>
+          {filmData.map((film, index) => (
+            <div key={index} className={`${Styles.m_card}`}>
+              <Link
+                to={`/poster?id=${film.imdb?.id}`}
+                className="text-decoration-none"
+              >
+                <div className={Styles.m_card_inner}>
+                  <img
+                    src={film.poster ? film.poster : img}
+                    className="poster-image"
+                    alt={film.title}
+                    width={200}
+                    height={300}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = img;
+                    }}
+                  />
+                </div>
+                <div className={Styles.m_card_body}>
+                  <h5 className={Styles.m_card_tits}>{film.title}</h5>
+                  <p className={Styles.m_card_text}>
+                    {film.year} |{" "}
+                    {film.languages?.map((language, index) => (
+                      <span key={index}>
+                        {film.languages.length > 1 && index >= 1 ? ", " : ""}
+                        {language}
+                      </span>
+                    ))}{" "}
+                    | {film.runtime}
+                    {" mins"}
+                  </p>
+                </div>
+              </Link>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
 export default Movies;
-
-
-// import { useEffect, useState } from "react";
-// import { fetchData } from "../api/api";
-// import axios from 'axios';
-
-// const List = ({ title, param }) => {
-//   const [list, setList] = useState([]);
-//   useEffect(()=>{
-//     fetchData(param).then( res => setList(res.data.results))
-//   },[]);
-//   console.log(list)
-//   return(
-//     <div className="list">
-//       <div className={Styles.row}>
-//         <h2 className="text-white title">{ title }</h2>
-//         <div className="col">
-//           <div className={Styles.row__posters}>
-//             {
-//               list.map(item => <img
-//                 className={`${Styles.row__poster} ${Styles.row__posterLarge}`}
-//                 src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-//                 alt={item.title}
-//               />)
-//             }
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default List;
-
-
-
-
