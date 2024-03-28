@@ -14,9 +14,6 @@ const HomeBanner = () => {
            </div>
         </div>
 
-        <div className={Styles.input_group}>
-          <input className={`${Styles.form_control} ${Styles.searchInput}`} type="text" placeholder="Search" />
-        </div>
       </div>
       <div className={Styles.shadow}></div>
     </div>

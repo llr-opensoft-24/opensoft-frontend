@@ -18,7 +18,7 @@ const App = () => {
       <Route path='register' element={<RegisterRoute />} />
       <Route path='dashboard' element={<DashboardRoute />} />
       <Route path='otp' element={<OtpRoute/>} />
-      <Route path='forgetpassword' element={<FpForm/>}/>
+      <Route path='forgotpassword' element={<FpForm/>}/>
     </Routes>
   );
 }

@@ -30,7 +30,8 @@ const OtpForm = () => {
         const email = userData["email"];
         const response = await axios.post('http://10.145.80.49:8080/verifyemail', {
             email: email,
-            otp : otp
+            otp : otp,
+            type:"email"
         });
       console.log(response);
       if(response.data.error===null)
