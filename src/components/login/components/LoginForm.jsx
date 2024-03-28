@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { loginSuccess, loginFailure, setToken } from '../../../redux/actions';
+import { loginSuccess, loginFailure, setToken, setData } from '../../../redux/actions';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import showIcon from '../../../assets/showicon.png';
+import hideIcon from '../../../assets/hideicon.png';
 import Styles from '../Login.module.css';
 
 const LoginForm = () => {
@@ -25,7 +27,9 @@ const LoginForm = () => {
     setPasswordValid(true);
   };
 
-  const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = (e) => {
+    e.preventDefault(); 
+    e.stopPropagation();
     setShowPassword(!showPassword);
   };
 
@@ -45,6 +49,7 @@ const LoginForm = () => {
         email: email,
         password: password
       });
+
       if(response.data.data.token){
         dispatch(loginSuccess(response.data.data.user_data));
         dispatch(setToken(response.data.data.token));
@@ -58,6 +63,21 @@ const LoginForm = () => {
           draggable: true,
         });
         navigate('/dashboard');
+      }
+      else
+      {
+        console.log(response.data.data.user_data);
+        dispatch(setData(response.data.data.user_data));
+        toast.success(response.data.message
+          ,{
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        navigate('/otp');
       }
     } catch (error) {
       toast.error(error.response.data.message,{
@@ -76,6 +96,9 @@ const LoginForm = () => {
     return value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
   };
 
+  const handleForgotPassword = () => {
+    navigate('/forgotpassword');
+  };
 
   return (
     <div>
@@ -98,19 +121,26 @@ const LoginForm = () => {
             type={showPassword ? "text" : "password"} 
             placeholder="Password"
           />
-          <div className="input-group-append">
-            <button className={`btn btn-outline-secondary ${Styles.passwordVisibilityBtn}`} type="button" onClick={togglePasswordVisibility}>
-              {showPassword ? "Hide" : "Show"}
-            </button>
+          <div className={Styles.input_group_append}>
+            {showPassword ? 
+              <img className={Styles.visiblity_img} src={showIcon} alt="Hide" onClick={(e) => togglePasswordVisibility(e)} /> : 
+              <img className={Styles.visiblity_img} src={hideIcon} alt="Show" onClick={(e) => togglePasswordVisibility(e)} />
+            }
           </div>
         </div>
         {!passwordValid && (
           <p className="text-danger p-1 mb-0">Password is invalid/blank</p>
         )}
+    
+        
         <button className="btn btn-danger w-100 mt-4" onClick={ctaClickHandler}>
           Sign In
         </button>
-        <br />
+        <div className="d-flex justify-content-end ">
+        <button className="btn text-white mt-2 text-end" onClick={handleForgotPassword}>
+          Forgot Password?
+        </button>
+        </div>
       </form>
     </div>
   );

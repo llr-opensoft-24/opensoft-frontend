@@ -15,10 +15,15 @@ const Header = () => {
     <header className={Styles.topNav}>
       <nav className="navbar navbar-expand-md navbar-dark">
         <div className="container-fluid">
-          
+        {location.pathname !== '/' && ( 
           <Link className="nav__logo" to="/">
             <img className={Styles.nav__logo} src={flixpediaLogo} alt="" />
           </Link>
+          )}
+          {location.pathname == '/' && ( 
+            <div> </div>
+          )}
+        
           
           <div className="navbar">
             <form className="d-flex" role="search">

@@ -1,19 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import showIcon from '../../../assets/showicon.png';
+import hideIcon from '../../../assets/hideicon.png';
 import Styles from '../Login.module.css';
 
 const SignupForm = () => {
-
   const navigate = useNavigate();
-  const [text , setText] =useState('');
+  const [text , setText] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const textOnChangeHandler = (e) => {
     setText(e.target.value);
@@ -32,6 +35,12 @@ const SignupForm = () => {
   const confirmPasswordOnChangeHandler = (e) => {
     setConfirmPassword(e.target.value);
     setConfirmPasswordValid(true);
+  };
+
+  const togglePasswordVisibility = (e, setShowPassword) => {
+    e.preventDefault(); 
+    e.stopPropagation();
+    setShowPassword(!showPassword);
   };
 
   const registerUser = async (e) => {
@@ -56,8 +65,7 @@ const SignupForm = () => {
         password: password
       });
       console.log(response.data);
-      if(response.data.error===null)
-      {
+      if(response.data.error===null) {
         toast.success(response.data.message,{
           position: "bottom-right",
           autoClose: 2000,
@@ -67,8 +75,7 @@ const SignupForm = () => {
           draggable: true,
         });
         navigate('/login');
-      }
-      else{
+      } else {
         toast.error(response.data.message,{
           position: "bottom-right",
           autoClose: 2000,
@@ -97,44 +104,60 @@ const SignupForm = () => {
 
   return (
     <div>
-       <form>
-          <input
-            className={`form-control mb-3 ${Styles.signupusername}`}
-            value={text}
-            onChange={textOnChangeHandler} 
-            type="text"
-            placeholder="username"
-          />
-          <input
-            className={`form-control mt-3 mb-0 ${Styles.signupemail}`}
-            value={email}
-            onChange={emailOnChangeHandler}
-            type="email"
-            placeholder="Email"
-          />
-          {!emailValid && <p className="mb-0 p-1 text-danger">Email is invalid/blank</p>}
+      <form>
+        <input
+          className={`form-control mb-3 ${Styles.signupusername}`}
+          value={text}
+          onChange={textOnChangeHandler} 
+          type="text"
+          placeholder="Username"
+        />
+        <input
+          className={`form-control mt-3 mb-0 ${Styles.signupemail}`}
+          value={email}
+          onChange={emailOnChangeHandler}
+          type="email"
+          placeholder="Email"
+        />
+        {!emailValid && <p className="mb-0 p-1 text-danger">Email is invalid/blank</p>}
+        <div className="input-group ">
           <input
             className={`form-control mt-3 mb-0 ${Styles.signuppwd}`}
             value={password}
             onChange={passwordOnChangeHandler}
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
-          />
-          {!passwordValid && <p className="mb-0 p-1 text-danger ">Password is invalid/blank</p>}
-          <input
-            className={`form-control mt-3 mb-0 ${Styles.signupcnfpwd}`}
-            value={confirmPassword}
-            onChange={confirmPasswordOnChangeHandler}
-            type="password"
-            placeholder="Confirm Password"
-          />
-          {!confirmPasswordValid && <p className="p-1 mb-0 text-danger">Passwords do not match</p>}
-          <button className="btn btn-danger w-100 mt-4" onClick={registerUser}>
-            Register
-          </button>
-        </form>
+          /> 
+          <div className={Styles.input_group_append1}>
+            {showPassword ? 
+              <img className={Styles.signup_img} src={showIcon} alt="Hide" onClick={(e) => togglePasswordVisibility(e, setShowPassword)} /> : 
+              <img className={Styles.signup_img} src={hideIcon} alt="Show" onClick={(e) => togglePasswordVisibility(e, setShowPassword)} />
+            }
+          </div>
+        </div >
+        {!passwordValid && <p className="mb-0 p-1 text-danger">Password is invalid/blank</p>}
+        <div className="input-group ">
+        <input
+          className={`form-control mt-3 mb-0 ${Styles.signupcnfpwd}`}
+          value={confirmPassword}
+          onChange={confirmPasswordOnChangeHandler}
+          type={showConfirmPassword ? "text" : "password"}
+          placeholder="Confirm Password"
+        />
+         <div className={`${Styles.input_group_append2} ${Styles.visibility_img}`}>
+          {showConfirmPassword ? 
+            <img className={Styles.signup_img} src={showIcon} alt="Hide" onClick={(e) => togglePasswordVisibility(e, setShowConfirmPassword)} /> : 
+            <img className={Styles.signup_img} src={hideIcon} alt="Show" onClick={(e) => togglePasswordVisibility(e, setShowConfirmPassword)} />
+          }
+        </div> 
+        </div>
+        {!confirmPasswordValid && <p className="p-1 mb-0 text-danger">Passwords do not match</p>}
+        <button className="btn btn-danger w-100 mt-4" onClick={registerUser}>
+          Register
+        </button>
+      </form>
     </div>
-  )
-}
+  );
+};
 
-export default SignupForm
+export default SignupForm;

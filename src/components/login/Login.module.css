@@ -4,7 +4,7 @@
 .signuppwd::placeholder,
 .signupcnfpwd::placeholder,
 .loginpwd::placeholder {
-  color: white;
+  color: rgb(157, 153, 153);
 }
 
 .login {
@@ -54,6 +54,8 @@
   font-size: 16px;
   font-weight: 500;
   margin-top: 16px;
+  text-align: center;
+
 }
 
 .login .login_form_other .login_signup_now button {
@@ -61,6 +63,7 @@
   border: none;
   color: white;
   cursor: pointer;
+  
 }
 
 .closeButton {
@@ -81,11 +84,48 @@
 }
 
 .passwordVisibilityBtn {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  border: none;
+}
+
+.visiblity_img{
+  height: 30px;
+  width: auto;
+  cursor: pointer;
 }
 
 
+
+.loginpwd {
+  padding-right: 40px; 
+  z-index: 7;
+}
+
+
+.input_group_append {
+  position: absolute;
+  top: 37%; 
+  right: 10px;
+  transform: translateY(-50%); 
+  z-index: 8;
+}
+.input_group_append1{
+  position: absolute;
+  top: 63%; 
+  right: 10px;
+  transform: translateY(-50%); 
+  z-index: 8;
+}
+.input_group_append2{
+  position: absolute;
+  top: 63%;
+  right: 10px;
+  transform: translateY(-50%);
+  z-index: 8;
+}
+.signup_img{
+  height: 30px;
+  width: auto;
+}
 
 @media (max-width: 600px) {
   .login .holder {
