@@ -9,6 +9,7 @@ import OtpRoute from './routes/otp/otp.route';
 import FpForm from './components/login/components/ForgotPasswordForm';
 import PaymentRoute from './routes/payment/payment.route';
 
+import Video from './components/player/Video';
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
       <Route path='otp' element={<OtpRoute/>} />
       <Route path='forgotpassword' element={<FpForm/>}/>
       <Route path='payment' element={<PaymentRoute/>}/>
+      <Route path='player' element={<Video/>}/>
     </Routes>
   );
 }
