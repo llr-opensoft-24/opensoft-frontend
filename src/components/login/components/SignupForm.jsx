@@ -6,7 +6,7 @@ import showIcon from '../../../assets/showicon.png';
 import hideIcon from '../../../assets/hideicon.png';
 import Styles from '../Login.module.css';
 
-const SignupForm = () => {
+const SignupForm = (props) => {
   const navigate = useNavigate();
   const [text , setText] = useState('');
   const [email, setEmail] = useState('');
@@ -59,13 +59,14 @@ const SignupForm = () => {
     }
 
     try {
-      const response = await axios.post('http://10.145.54.6:8080/register', {
+      const response = await axios.post('http://10.145.80.49:8080/register', {
         username: text,
         email: email,
         password: password
       });
       console.log(response.data);
       if(response.data.error===null) {
+        props.setIsSigningUp(false);
         toast.success(response.data.message,{
           position: "bottom-right",
           autoClose: 2000,

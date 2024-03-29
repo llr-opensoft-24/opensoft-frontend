@@ -45,7 +45,7 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await axios.post('http://10.145.54.6:8080/login', {
+      const response = await axios.post('http://10.145.80.49:8080/login', {
         email: email,
         password: password
       });
@@ -54,6 +54,10 @@ const LoginForm = () => {
         dispatch(loginSuccess(response.data.data.user_data));
         dispatch(setToken(response.data.data.token));
         localStorage.setItem("token",response.data.data.token);
+        console.log(response.data.data.user_data);
+        localStorage.setItem("email",response.data.data.user_data.email);
+        localStorage.setItem("plan",response.data.data.user_data.plan);
+        localStorage.setItem("verified",response.data.data.user_data.verified);
         toast.success('Login Successful',{
           position: "bottom-right",
           autoClose: 2000,

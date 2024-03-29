@@ -290,7 +290,7 @@ function App() {
   };
 
   const [videoUrl, setVideoUrl] = useState(
-    "http://10.145.54.6:8080/mongo-video?filename=testing.mp4"
+    "http://10.145.80.49:8080/mongo-video?filename=testing.mp4"
   );
 
   const handleQualityChange = (quality) => {
@@ -316,7 +316,7 @@ function App() {
         newVideoUrl = "./video.mp4";
         break;
         case "480p":
-          newVideoUrl = "http://10.145.54.6:8000/mongo-video?filename=testing.mp4";
+          newVideoUrl = "http://10.145.80.49:8000/mongo-video?filename=testing.mp4";
           break;
         case "720p":
           newVideoUrl = "https://example.com/video_1080p.mp4";

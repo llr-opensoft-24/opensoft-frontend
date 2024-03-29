@@ -1,55 +1,55 @@
-import React from 'react'
-import './Payment.css'
-import axios from 'axios'
-import PricingCard from './PricingCard'
-import { useState } from 'react'
-import {useNavigate} from 'react-router-dom'
-//import Razorpay from 'razorpay';
+import React from 'react';
+import './Payment.css';
+import axios from 'axios';
+import PricingCard from './PricingCard';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Plans = () => {
   const navigate = useNavigate();
-  const [selectMonthly, setSelectMonthly] = useState(true);
+  const token = localStorage.getItem("token");
+  // const [titl,setTitle] = useState('free');
   const checkoutHandler = async (amount, title) => {
-    var b_amount = 0
-    var order_id = ''
-    var razorpay_payment_id =''
-    var razorpay_signature =''
-    var razorpay_order_id =''
+    var b_amount = 0;
+    var order_id = '';
+    var razorpay_payment_id ='';
+    var razorpay_signature ='';
+    var razorpay_order_id ='';
+    // setTitle(title);
 
+    try {
+      const plan = title.toLowerCase();
 
-    // console.log("hiiiii")
-      try {
-        // console.log("hi1")
-        const plan = title.toLowerCase()
-        console.log(plan,"ff",title)
-        const response = await axios.post(`http://10.145.54.6:8080/order?amount=${amount}&plan=${plan}`,{
-          headers:{
-            Authorization : `${localStorage.getItem("token")}`,
-          }
-        });
-        if(response['statusText'] != 'OK'){
-          throw new Error('failed to create order');
+      const response = await axios.post(`http://10.145.80.49:8080/order?amount=${amount}&plan=${plan}`,{}, {
+        headers:{
+          Authorization : `${localStorage.getItem("token")}`,
         }
-        const data = response['data'];
-        order_id=data.data.order_id
-        b_amount = data.data.amount
-        
-      } catch (error) {
-        console.error('Error fetching data:', error);
+      });
+
+      if(response['statusText'] !== 'OK'){
+        throw new Error('Failed to create order');
       }
-    console.log(order_id)
-    console.log(b_amount)
-    console.log(window)
+
+      const data = response['data'];
+      order_id = data.data.order_id;
+      b_amount = data.data.amount;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+
+    console.log(order_id);
+    console.log(b_amount);
+
     const options = {
-      key: "rzp_test_5oyeXgrO0WUciY", // Enter the Key ID generated from the Dashboard
-      amount: b_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      key: "rzp_test_5oyeXgrO0WUciY",
+      amount: b_amount,
       currency: "INR",
       name: "Acme Corp",
       description: "Test Transaction",
       image: "https://example.com/your_logo",
-      order_id: order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      "handler": function (response){
-        console.log(response)
+      order_id: order_id,
+      handler: function (response){
+        console.log(response);
 
         razorpay_payment_id = response.razorpay_payment_id;
         razorpay_order_id = response.razorpay_order_id;
@@ -59,98 +59,82 @@ const Plans = () => {
           razorpay_payment_id : response.razorpay_payment_id,
           razorpay_order_id : response.razorpay_order_id,
           razorpay_signature : response.razorpay_signature
-        }
-        
-         axios.post(`http://10.145.54.6:8080/verify`,send_data,{
+        };
+
+        axios.post(`http://10.145.80.49:8080/verify`,send_data,{ 
           headers: {
             'Content-Type': 'application/json',
-          },
-         }).then(response => {
+            'Authorization': token
+          }
+        }).then(response => {
           console.log('Response from backend:', response.data);
-          // Handle the response data here
+          if(response.data.data.verification_status){
+            console.log(title);
+            localStorage.setItem("plan", title);
+            navigate('/dashboard');
+          }
         })
         .catch(error => {
           console.error('Error:', error);
-          // Handle errors here
         });
-        
-
-        
-    },
-    // callback_url:"http://localhost:8080/verify/",
+      },
       prefill: {
-          name: "Gaurav Kumar",
-          email: "gaurav.kumar@example.com",
-          contact: "9000090000"
+        // name: "Gaurav Kumar",
+        // email: "gaurav.kumar@example.com",
+        // contact: "9000090000"
       },
       notes: {
-          address: "Razorpay Corporate Office"
+        address: "Razorpay Corporate Office"
       },
       theme: {
-          color: "#3399cc"
+        color: "#3399cc"
       }
+    };
+
+    const razor = new window.Razorpay(options);
+    razor.open();
   };
-  const razor = new window.Razorpay(options);
 
-      razor.open();
-      // e.preventDefault();
+  const redirectToHome = () => {
     
-  }
-
-  const redirectToHome= () =>{
+    
     navigate('/dashboard');
-  }
+  };
 
   return (
     <>
-    <div className="PricingApp">
-      <div className="app-container">
-        {/* Header */}
-        <header>
-          <h1 className="header-topic">Our Pricing Plan</h1>
-          {/* <div className="header-row">
-            <p>Annually</p>
-            <label className="price-switch">
-              <input
-                className="price-checkbox"
-                onChange={() => {
-                  setSelectMonthly((prev) => !prev);
-                }}
-                type="checkbox"
-              />
-              <div className="switch-slider"></div>
-            </label>
-            <p>Monthly</p>
-          </div> */}
-        </header>
-        {/* Cards here */}
-        <div className="pricing-cards">
-          <PricingCard
-            title="Free"
-            price={"Free"}
-            movies="5000+"
-            quality="720p"
-            handler={redirectToHome}
-          />
-          <PricingCard
-            title="Pro"
-            price={"299"}
-            movies="10000+"
-            quality="1080p"
-            handler={checkoutHandler}
-          />
-          <PricingCard
-            title="Premium"
-            price={"499"}
-            movies="All"
-            quality="4k"
-            handler={checkoutHandler}
-          />
+      <div className="PricingApp">
+        <div className="app-container">
+          <header>
+            <h1 className="header-topic">Our Pricing Plan</h1>
+          </header>
+          <div className="pricing-cards">
+            <PricingCard
+              title="Free"
+              price={"Free"}
+              movies="5000+"
+              quality="720p"
+              handler={redirectToHome}
+            />
+            <PricingCard
+              title="Pro"
+              price={"299"}
+              movies="10000+"
+              quality="1080p"
+              handler={checkoutHandler}
+            />
+            <PricingCard
+              title="Premium"
+              price={"499"}
+              movies="All"
+              quality="4k"
+              handler={checkoutHandler}
+            />
+          </div>
         </div>
       </div>
-    </div>
     </>
-  )
-}
+  );
+};
 
-export default Plans
+export default Plans;
