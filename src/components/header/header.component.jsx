@@ -20,7 +20,7 @@ const Header = () => {
             <img className={Styles.nav__logo} src={flixpediaLogo} alt="" />
           </Link>
           )}
-          {location.pathname == '/' && ( 
+          {location.pathname === '/' && ( 
             <div> </div>
           )}
         

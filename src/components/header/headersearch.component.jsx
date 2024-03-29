@@ -7,11 +7,13 @@ import axios from "axios";
 
 const Header = () => {
   const navigate = useNavigate();
+  const plan = localStorage.getItem("plan");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]); // [ {id: 1, title: "movie1"}, {id: 2, title: "movie2"}
   const clickLogout = (e) => {
     e.preventDefault();
     localStorage.setItem("token", "");
+    localStorage.clear();
     navigate("/login");
   };
   const clickPlans = (e) => {
@@ -68,18 +70,21 @@ const Header = () => {
                 onChange={onSearch}
                 style={{ width: "500px" }}
               />
-              {searchTerm.length>2 && <SearchResults searchResults={searchResults} />}
+              {searchTerm.length > 2 && (
+                <SearchResults searchResults={searchResults} />
+              )}
             </form>
           </div>
           {/* Right section */}
-          
+
           <div className="d-flex">
+            {plan === "free" && (
               <div className={Styles.plans}>
-              <button className="btn btn-danger" onClick={clickPlans}>
-                Plans
-              </button>
-            </div>
-            
+                <button className="btn btn-danger" onClick={clickPlans}>
+                  Plans
+                </button>
+              </div>
+            )}
             <div className="sign-in-button">
               <button className="btn btn-danger" onClick={clickLogout}>
                 Logout
