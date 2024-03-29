@@ -61,15 +61,13 @@
     align-items: center;
     margin-bottom: 2rem;
     /* margin-top: 2rem; */
-    
-
+    flex-wrap: wrap;
 }
 .plot{
     display: flex;
-    align-items: baseline;
-    & h3{
-        width: 8rem;
-    }
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
 }
 @keyframes slideup {
    0%{

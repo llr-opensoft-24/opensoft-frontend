@@ -21,7 +21,7 @@ const Poster = () => {
   useEffect(() => {
     const getAllMovies = async () => {
       try {
-        const response = await axios.get(`http://10.145.80.49:8080/movies`, {
+        const response = await axios.get(`http://10.145.54.6:8080/movies`, {
           headers: {
             Authorization: `${localStorage.getItem("token")}`,
           },
@@ -61,7 +61,7 @@ const Poster = () => {
                 <span className="yr">{film.year}</span>
                 <span>&nbsp; | &nbsp; </span>
                 <span>
-                  <FontAwesomeIcon icon={faClock} /> {film.runtime}{" "}
+                  <FontAwesomeIcon icon={faClock} /> {film.runtime}{" mins"}
                 </span>
                 <span>&nbsp;|&nbsp;</span>
                 <span>
@@ -84,11 +84,11 @@ const Poster = () => {
             <p className="genere">{film.genre}</p>
             <div className="cast">
               <h3>Cast : &nbsp;</h3>
-              <p>{film.cast}</p>
+              <h5>{film.cast}</h5>
             </div>
             <div className="plot">
-              <h3>Plot : &nbsp;</h3>
-              <p>{film.plot}</p>
+              <h3>Plot : </h3>
+              <h5>{film.plot}</h5>
             </div>
           </div>
         </div>

@@ -19,7 +19,7 @@ const Header = () => {
     const getResponse = async () => {
       try {
         if (searchTerm.length > 1) {
-          const response = await axios.get(`http://10.145.80.49:8080/search?q=${searchTerm}`, {
+          const response = await axios.get(`http://10.145.54.6:8080/search?q=${searchTerm}`, {
             headers: {
               Authorization: `${localStorage.getItem("token")}`,
             },
