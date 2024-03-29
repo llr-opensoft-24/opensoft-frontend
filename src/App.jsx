@@ -9,6 +9,7 @@ import OtpRoute from './routes/otp/otp.route';
 import FpForm from './components/login/components/ForgotPasswordForm';
 import Poster from './components/movieposter/poster';
 import DashHeader from './components/dashboard/header';
+import Video from './components/player/Video';
 
 const App = () => {
   
@@ -22,7 +23,7 @@ const App = () => {
       <Route path='forgotpassword' element={<FpForm/>}/>
       <Route path='poster' element={<Poster />} />
       <Route path='dashboard' element= {<DashHeader />}/>
-
+      <Route path='player' element={<Video/>}/>
     </Routes>
   );
 }
