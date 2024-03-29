@@ -14,6 +14,10 @@ const Header = () => {
     localStorage.setItem("token", "");
     navigate("/login");
   };
+  const clickPlans = (e) => {
+    e.preventDefault();
+    navigate("/payment");
+  };
 
   useEffect(() => {
     const getResponse = async () => {
@@ -71,7 +75,7 @@ const Header = () => {
           
           <div className="d-flex">
               <div className={Styles.plans}>
-              <button className="btn btn-danger" onClick={clickLogout}>
+              <button className="btn btn-danger" onClick={clickPlans}>
                 Plans
               </button>
             </div>
