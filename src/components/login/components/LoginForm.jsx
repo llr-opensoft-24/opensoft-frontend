@@ -45,7 +45,7 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await axios.post('http://10.145.80.49:8080/login', {
+      const response = await axios.post('http://10.145.54.6:8080/login', {
         email: email,
         password: password
       });

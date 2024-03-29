@@ -8,7 +8,6 @@ import LoginRoute from './routes/login/login.route';
 import OtpRoute from './routes/otp/otp.route';
 import FpForm from './components/login/components/ForgotPasswordForm';
 import PaymentRoute from './routes/payment/payment.route';
-
 import Video from './components/player/Video';
 
 const App = () => {

@@ -3,10 +3,11 @@ import './Payment.css'
 import axios from 'axios'
 import PricingCard from './PricingCard'
 import { useState } from 'react'
+import {useNavigate} from 'react-router-dom'
 //import Razorpay from 'razorpay';
 
 const Plans = () => {
-
+  const navigate = useNavigate();
   const [selectMonthly, setSelectMonthly] = useState(true);
   const checkoutHandler = async (amount, title) => {
     var b_amount = 0
@@ -19,7 +20,13 @@ const Plans = () => {
     // console.log("hiiiii")
       try {
         // console.log("hi1")
-        const response = await axios.post(`http://10.145.54.6:8080/order?amount=${amount}&${title}`);
+        const plan = title.toLowerCase()
+        console.log(plan,"ff",title)
+        const response = await axios.post(`http://10.145.54.6:8080/order?amount=${amount}&plan=${plan}`,{
+          headers:{
+            Authorization : `${localStorage.getItem("token")}`,
+          }
+        });
         if(response['statusText'] != 'OK'){
           throw new Error('failed to create order');
         }
@@ -90,6 +97,9 @@ const Plans = () => {
     
   }
 
+  const redirectToHome= () =>{
+    navigate('/dashboard');
+  }
 
   return (
     <>
@@ -98,7 +108,7 @@ const Plans = () => {
         {/* Header */}
         <header>
           <h1 className="header-topic">Our Pricing Plan</h1>
-          <div className="header-row">
+          {/* <div className="header-row">
             <p>Annually</p>
             <label className="price-switch">
               <input
@@ -111,27 +121,27 @@ const Plans = () => {
               <div className="switch-slider"></div>
             </label>
             <p>Monthly</p>
-          </div>
+          </div> */}
         </header>
         {/* Cards here */}
         <div className="pricing-cards">
           <PricingCard
             title="Free"
-            price={selectMonthly ? "0 / Month" : "0 / Year"}
-            movies="5000"
+            price={"Free"}
+            movies="5000+"
             quality="720p"
-            handler={checkoutHandler}
+            handler={redirectToHome}
           />
           <PricingCard
             title="Pro"
-            price={selectMonthly ? "299 / Month" : "2999 / Year"}
-            movies="10000"
+            price={"299"}
+            movies="10000+"
             quality="1080p"
             handler={checkoutHandler}
           />
           <PricingCard
             title="Premium"
-            price={selectMonthly ? "499 / Month" : "4999 / Year"}
+            price={"499"}
             movies="All"
             quality="4k"
             handler={checkoutHandler}
