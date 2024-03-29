@@ -1,6 +1,6 @@
 .background {
-    background: rgb(94, 13, 13);
-    background: radial-gradient(circle, rgba(94, 13, 13, 1) 0%, rgba(0, 0, 0, 1) 64%);
+    background: rgb(100,100,100);
+background: radial-gradient(circle, rgba(100,100,100,1) 0%, rgba(0,0,0,1) 64%);
     width: 100%;
     height: 100vh;
     z-index: -1;
@@ -122,3 +122,5 @@ input {
   .m_card_body{
     margin-top: 1rem;
   }
+
+  

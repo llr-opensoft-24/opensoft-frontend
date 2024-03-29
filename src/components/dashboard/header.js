@@ -4,6 +4,7 @@ import SearchResults from "../header/components/SearchResults";
 import axios from "axios";
 import img from "../../assets/img.webp";
 import { Link } from "react-router-dom";
+import Poster from "../movieposter/poster";
 
 const DashHeader = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,7 +13,7 @@ const DashHeader = () => {
   useEffect(() => {
     const getAllMovies = async () => {
       try {
-        const response = await axios.get(`http://10.145.54.6:8080/movies`, {
+        const response = await axios.get(`http://10.145.80.49:8080/movies`, {
           headers: {
             Authorization: `${localStorage.getItem("token")}`,
           },
@@ -36,7 +37,7 @@ const DashHeader = () => {
       try {
         if (searchTerm.length > 1) {
           const response = await axios.get(
-            `http://10.145.54.6:8080/search?q=${searchTerm}`,
+            `http://10.145.80.49:8080/search?q=${searchTerm}`,
             {
               headers: {
                 Authorization: `${localStorage.getItem("token")}`,
@@ -60,8 +61,11 @@ const DashHeader = () => {
     localStorage.setItem("token", "");
     window.location.href = "/login";
   };
+
+  const [open, setOpen] = useState(false);
   return (
     <div className={Styles.background}>
+      {open && (<Poster/>)}
       <div className="d-flex p-4 justify-content-end">
         <div className={Styles.plans}>
           <button className="btn btn-danger" onClick={clickLogout}>
@@ -104,7 +108,7 @@ const DashHeader = () => {
             onChange={onSearch}
           />
           {searchTerm.length >= 2 && (
-            <SearchResults searchResults={searchResults} />
+            <SearchResults searchResults={searchResults} setOpen={setOpen} />
           )}
         </div>
       </div>

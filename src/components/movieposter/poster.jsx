@@ -5,6 +5,8 @@ import img from "../../assets/img.webp";
 import "./poster.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Image from "../../helpers/Image";
+import { ArrowBack } from "@material-ui/icons";
 
 const Poster = () => {
   const { search } = useLocation();
@@ -21,7 +23,7 @@ const Poster = () => {
   useEffect(() => {
     const getAllMovies = async () => {
       try {
-        const response = await axios.get(`http://10.145.54.6:8080/movies`, {
+        const response = await axios.get(`http://10.145.80.49:8080/movies`, {
           headers: {
             Authorization: `${localStorage.getItem("token")}`,
           },
@@ -42,53 +44,67 @@ const Poster = () => {
 
   return (
     <>
+      <div className="head">
+        <ArrowBack className=" back-btn" />
+      </div>
       {film && (
         <div className="p_container">
-          <div className="left">
-            <div className="image">
-              <img src={film?.poster ? film.poster : img} alt="img" />
+          <div className="p_content">
+            <div className="left">
+              {film.poster ? (
+                <Image src={film.poster} className={"posterImg"} />
+              ) : (
+                <Image src={img} />
+              )}
+              <div className="btn">
+                <button>
+                  <FontAwesomeIcon icon={faPlay} /> &nbsp;Watch Now
+                </button>
+              </div>
             </div>
-            <div className="btn">
-              <button>
-                <FontAwesomeIcon icon={faPlay} /> &nbsp;Watch Now
-              </button>
-            </div>
-          </div>
-          <div className="right">
-            <h2 className="p_title">{film.title}</h2>
-            <div className="year">
-              <p>
-                <span className="yr">{film.year}</span>
-                <span>&nbsp; | &nbsp; </span>
-                <span>
-                  <FontAwesomeIcon icon={faClock} /> {film.runtime}{" mins"}
-                </span>
-                <span>&nbsp;|&nbsp;</span>
-                <span>
-                  &nbsp;{" "}
-                  {film.languages.map((language, index) => (
-                    <span key={index}>
-                      {film.languages.length > 1 && index >= 1 ? ", " : ""}
-                      {language}
-                    </span>
-                  ))}{" "}
-                  &nbsp;
-                </span>
-                <span>&nbsp;|&nbsp;</span>
-                <span>
-                  &nbsp; <FontAwesomeIcon icon={faStar} className="star" />{" "}
-                  {film.imdb?.rating} &nbsp;
-                </span>{" "}
-              </p>
-            </div>
-            <p className="genere">{film.genre}</p>
-            <div className="cast">
-              <h3>Cast : &nbsp;</h3>
-              <h5>{film.cast}</h5>
-            </div>
-            <div className="plot">
-              <h3>Plot : </h3>
-              <h5>{film.plot}</h5>
+            <div className="right">
+              <div className="p_title">
+                {film.title} ({film.year})
+              </div>
+              <div className="tags">
+                {film.genres
+                  ? film.genres.map((genre) => {
+                      return <span className="genre">{genre}</span>;
+                    })
+                  : null}
+              </div>
+              <div className="year">
+                <p>
+                  <span>
+                    <FontAwesomeIcon icon={faClock} /> {film.runtime}
+                    {" mins"}
+                  </span>
+                  <span>&nbsp;|&nbsp;</span>
+                  <span>
+                    &nbsp;{" "}
+                    {film.languages.map((language, index) => (
+                      <span key={index}>
+                        {film.languages.length > 1 && index >= 1 ? ", " : ""}
+                        {language}
+                      </span>
+                    ))}{" "}
+                    &nbsp;
+                  </span>
+                  <span>&nbsp;|&nbsp;</span>
+                  <span>
+                    &nbsp; <FontAwesomeIcon icon={faStar} className="star" />{" "}
+                    {film.imdb?.rating} &nbsp;
+                  </span>{" "}
+                </p>
+              </div>
+              <div className="plot">
+                <h3 className="title">Overview : </h3>
+                <h6 className="content">{film.fullplot}</h6>
+              </div>
+              {<div className="cast">
+                <h3 className="title">Cast : &nbsp;</h3>
+                <h5 className="cast_name">{film.cast}</h5>
+              </div>}
             </div>
           </div>
         </div>

@@ -171,7 +171,7 @@ function App() {
     volume: 1,
     loop: false,
     seeking: false,
- //   quality : "auto"
+    //   quality : "auto"
   });
 
   const playerRef = useRef(null);
@@ -190,7 +190,7 @@ function App() {
     played,
     seeking,
     volume,
-  //  quality
+    //  quality
   } = state;
 
   const handlePlayPause = () => {
@@ -249,8 +249,7 @@ function App() {
       muted: newValue === 0 ? true : false,
     });
   };
- 
-  
+
   const toggleFullScreen = () => {
     screenful.toggle(playerContainerRef.current);
   };
@@ -290,11 +289,11 @@ function App() {
   };
 
   const [videoUrl, setVideoUrl] = useState(
-    "http://10.145.54.6:8080/mongo-video?filename=testing.mp4"
+    "http://10.145.80.49:8080/mongo-video?filename=testing.mp4"
   );
 
   const handleQualityChange = (quality) => {
-    let newVideoUrl = ""; 
+    let newVideoUrl = "";
     let currentTime = 0; // Default to 0 if playerRef or getCurrentTime is not available
 
     // Get the current playback time if playerRef is available
@@ -302,51 +301,46 @@ function App() {
       currentTime = playerRef.current.getCurrentTime();
     }
 
-
-
     switch (quality) {
       case "144p":
         newVideoUrl = "./video.mp4";
         // setVideoUrl(newVideoUrl);
-        console.log('144p clicked')
-        console.log( 'inside  ' + videoUrl)
+        console.log("144p clicked");
+        console.log("inside  " + videoUrl);
 
         break;
       case "360p":
         newVideoUrl = "./video.mp4";
         break;
-        case "480p":
-          newVideoUrl = "http://10.145.54.6:8000/mongo-video?filename=testing.mp4";
-          break;
-        case "720p":
-          newVideoUrl = "https://example.com/video_1080p.mp4";
-          break;
-          
-          case "1080p":
-            newVideoUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
-            console.log('1080p clicked')
+      case "480p":
+        newVideoUrl =
+          "http://10.145.80.49:8000/mongo-video?filename=testing.mp4";
+        break;
+      case "720p":
+        newVideoUrl = "https://example.com/video_1080p.mp4";
+        break;
+
+      case "1080p":
+        newVideoUrl =
+          "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
+        console.log("1080p clicked");
         // console.log("in 1080p" + videoUrl)
-            break;
-            default:
-              newVideoUrl = videoUrl; // Keep the current URL if quality is not specified
-              console.log('default is runned')
-            }
-            setVideoUrl(newVideoUrl); // Update video URL state
-            console.log('outside  ' + videoUrl)
+        break;
+      default:
+        newVideoUrl = videoUrl; // Keep the current URL if quality is not specified
+        console.log("default is runned");
+    }
+    setVideoUrl(newVideoUrl); // Update video URL state
+    console.log("outside  " + videoUrl);
 
-            if (playerRef && playerRef.current && videoUrl !== newVideoUrl) {
-              setState({ ...state, seeking: true }); // Set seeking to true temporarily
-              setTimeout(() => {
-                playerRef.current.seekTo(currentTime);
-                setState({ ...state, seeking: false }); // Set seeking back to false after seeking
-              }, 1000); // Delay the seek operation to ensure the new video is loaded
-            }
-
+    if (playerRef && playerRef.current && videoUrl !== newVideoUrl) {
+      setState({ ...state, seeking: true }); // Set seeking to true temporarily
+      setTimeout(() => {
+        playerRef.current.seekTo(currentTime);
+        setState({ ...state, seeking: false }); // Set seeking back to false after seeking
+      }, 1000); // Delay the seek operation to ensure the new video is loaded
+    }
   };
-
-
-
-  
 
   // const addBookmark = () => {
   //   const canvas = canvasRef.current;
@@ -389,16 +383,15 @@ function App() {
 
   return (
     <>
-      
-      <Container maxWidth="md" >
+      <Container maxWidth="md">
         <div
           onMouseMove={handleMouseMove}
           onMouseLeave={hanldeMouseLeave}
           ref={playerContainerRef}
           className={classes.playerWrapper}
         >
-          <ReactPlayer style={{ backgroundColor: "grey" }}
-
+          <ReactPlayer
+            style={{ backgroundColor: "grey" }}
             ref={playerRef}
             width="100%"
             height="100%"
@@ -410,7 +403,7 @@ function App() {
             light={light}
             loop={loop}
             playbackRate={playbackRate}
-   //         quality = {quality}
+            //         quality = {quality}
             volume={volume}
             muted={muted}
             onProgress={handleProgress}
@@ -424,7 +417,7 @@ function App() {
                   crossorigin: "anonymous",
                 },
               },
-             
+
               youtube: {
                 playerVars: { showinfo: 1 },
               },
@@ -447,26 +440,31 @@ function App() {
             }}
           />
 
-{buffering && (
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            color: "#fff",
-            fontSize: 24,
-          }}
-        >
-          {/* Loading... */}
-          <iframe src="https://giphy.com/embed/uIJBFZoOaifHf52MER" width="480" height="439" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/UniversalMusicIndia-elvish-dg-immortals-bawli-uIJBFZoOaifHf52MER"></a></p>
-        </div>
-      )}
-    {/* </div>
-  );
-}
-          */}
-
+          {buffering && (
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                color: "#fff",
+                fontSize: 24,
+              }}
+            >
+              {/* Loading... */}
+              <iframe
+                src="https://giphy.com/embed/uIJBFZoOaifHf52MER"
+                width="480"
+                height="439"
+                frameBorder="0"
+                class="giphy-embed"
+                allowFullScreen
+              ></iframe>
+              <p>
+                <a href="https://giphy.com/gifs/UniversalMusicIndia-elvish-dg-immortals-bawli-uIJBFZoOaifHf52MER"></a>
+              </p>
+            </div>
+          )}
 
           <Controls
             ref={controlsRef}
@@ -488,8 +486,8 @@ function App() {
             onChangeDispayFormat={handleDisplayFormat}
             playbackRate={playbackRate}
             onPlaybackRateChange={handlePlaybackRate}
-           // quality = {quality}
-           // onQualityChange = {handleQuality}
+            // quality = {quality}
+            // onQualityChange = {handleQuality}
             onToggleFullScreen={toggleFullScreen}
             volume={volume}
             // onBookmark={addBookmark}
@@ -529,6 +527,3 @@ function App() {
 }
 
 export default App;
-
-
-

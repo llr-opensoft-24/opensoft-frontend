@@ -10,7 +10,7 @@ const Movies = () => {
   useEffect(() => {
     const getAllMovies = async () => {
       try {
-        const response = await axios.get(`http://10.145.54.6:8080/movies`, {
+        const response = await axios.get(`http://10.145.80.49:8080/movies`, {
           headers: {
             Authorization: `${localStorage.getItem("token")}`,
           },

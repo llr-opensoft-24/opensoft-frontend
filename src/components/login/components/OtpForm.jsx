@@ -28,7 +28,7 @@ const OtpForm = () => {
     e.preventDefault();
     try {
         const email = userData["email"];
-        const response = await axios.post('http://10.145.54.6:8080/verifyemail', {
+        const response = await axios.post('http://10.145.80.49:8080/verifyemail', {
             email: email,
             otp : otp,
             type:"email"
