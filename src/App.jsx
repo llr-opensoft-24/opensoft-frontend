@@ -8,6 +8,7 @@ import LoginRoute from './routes/login/login.route';
 import OtpRoute from './routes/otp/otp.route';
 import FpForm from './components/login/components/ForgotPasswordForm';
 import Poster from './components/movieposter/poster';
+import Video from './components/player/Video';
 
 const App = () => {
   
@@ -22,6 +23,7 @@ const App = () => {
       <Route path='poster' element={<Poster />} />
 
 
+      <Route path='player' element={<Video/>}/>
     </Routes>
   );
 }
