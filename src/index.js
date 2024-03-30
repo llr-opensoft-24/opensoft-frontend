@@ -12,16 +12,19 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { MovieProvider } from "./context/MovieContext";
+import { SearchProvider } from "./context/SearchContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-      <MovieProvider>
-          <ToastContainer />
-          <App />
-      </MovieProvider>
+        <MovieProvider>
+          <SearchProvider>
+            <ToastContainer />
+            <App />
+          </SearchProvider>
+        </MovieProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

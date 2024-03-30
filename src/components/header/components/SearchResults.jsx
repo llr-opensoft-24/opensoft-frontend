@@ -3,23 +3,27 @@ import Styles from "../header.module.css";
 import { SDFormat } from "../../../helpers/DateHelper";
 import { useNavigate } from "react-router-dom";
 import img from "../../../assets/img.webp";
+import { useSearch } from "../../../context/SearchContext";
 
-const SearchResults = ({ searchResults }) => {
+const SearchResults = ({searchResults}) => {
   const router = useNavigate();
-  const onListClickHandler = (id) => {
-    console.log(id);
-    router(`/poster?id=${id}`);
+  const {selectMovie, isLoading}=useSearch();
+  
+  const onSearchClickHandler = (result) => {
+    selectMovie(result);
+    router(`/poster?id=${result.imdb.id}&type=s`);
+    // localStorage.setItem("searchData", JSON.stringify({selectedMovie: result}));
   };
   return (
     <div
       className={`${Styles.search_box} d-flex flex-column text-dark position-absolute mt-1`}
     >
-      {searchResults.length > 0 ? (
+      {!isLoading? searchResults.length > 0 ? (
         searchResults.map((result, index) => (
           <div
             key={index}
             className={`${Styles.search_list} d-flex align-items-center flex-row my-2`}
-            onClick={() => onListClickHandler(result.imdb.id)}
+            onClick={() => onSearchClickHandler(result)}
           >
             <img
               src={result.poster ? result.poster : img}
@@ -33,7 +37,7 @@ const SearchResults = ({ searchResults }) => {
               }}
             />
             <div className="p-2 d-flex flex-column justify-content-center">
-              <p className="m-0">{result.title}</p>
+              <p className="m-0">{result.title}<span>({(result.plan).toUpperCase()})</span></p>
               <p className="m-0" style={{ fontSize: "0.75rem" }}>
                 {SDFormat(result.released)}
               </p>
@@ -42,7 +46,7 @@ const SearchResults = ({ searchResults }) => {
         ))
       ) : (
         <p className="text-center m-0">No results found</p>
-      )}
+      ): (<span>Loading...</span>)}
     </div>
   );
 };
