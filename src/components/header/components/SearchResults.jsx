@@ -37,7 +37,7 @@ const SearchResults = ({searchResults}) => {
               }}
             />
             <div className="p-2 d-flex flex-column justify-content-center">
-              <p className="m-0">{result.title}<span>({(result.plan).toUpperCase()})</span></p>
+              <p className="m-0">{result.title}<span>&nbsp;({(result.plan).toUpperCase()})</span></p>
               <p className="m-0" style={{ fontSize: "0.75rem" }}>
                 {SDFormat(result.released)}
               </p>

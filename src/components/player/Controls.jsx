@@ -169,11 +169,11 @@ const Controls = forwardRef(
       "720p",
     ]);
     useEffect(() => {
-      if (localStorage.getItem("plan") === "free") {
+      if (localStorage.getItem("plan").toLowerCase() === "free") {
         setQualityOptions(["360p", "480p", "720p"]);
-      } else if (localStorage.getItem("plan") === "pro") {
+      } else if (localStorage.getItem("plan").toLowerCase() === "pro") {
         setQualityOptions(["360p", "480p", "720p", "1080p"]);
-      } else if (localStorage.getItem("plan") === "Premium") {
+      } else if (localStorage.getItem("plan").toLowerCase() === "premium") {
         setQualityOptions(["360p", "480p", "720p", "1080p", "4K"]);
       }
     });
