@@ -234,6 +234,7 @@ function App() {
   const handleVolumeSeekDown = (e, newValue) => {
     setState({ ...state, seeking: false, volume: parseFloat(newValue / 100) });
   };
+
   const handleVolumeChange = (e, newValue) => {
     // console.log(newValue);
     setState({
@@ -308,7 +309,11 @@ function App() {
         break;
       case "1080p":
         newVideoUrl =
-          `http://4.247.166.168/video?filename=${film.plan}_720p.mp4&token=${localStorage.getItem("token")}`;
+          `http://4.247.166.168/video?filename=${film.plan}_1080p.mp4&token=${localStorage.getItem("token")}`;
+        break;
+      case "4K":
+        newVideoUrl =
+          `http://4.247.166.168/video?filename=${film.plan}_4K.mp4&token=${localStorage.getItem("token")}`;
         break;
       default:
         newVideoUrl = videoUrl; 
@@ -342,7 +347,7 @@ function App() {
 
   return (
     <>
-      <Container style={{display: "contents"}} maxWidth="md">
+      <Container style={{display: "contents"}} className="background_video" maxWidth="md">
         <div
           onMouseMove={handleMouseMove}
           onMouseLeave={hanldeMouseLeave}
@@ -413,8 +418,8 @@ function App() {
               {/* Loading... */}
               <iframe
                 src="https://giphy.com/embed/uIJBFZoOaifHf52MER"
-                width="50"
-                height="49"
+                width="100"
+                height="109"
                 frameBorder="0"
                 class="giphy-embed"
                 allowFullScreen

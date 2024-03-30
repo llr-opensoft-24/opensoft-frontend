@@ -61,7 +61,7 @@ export default function Navbar() {
               <button className={`dashboard-item ${Styles.dropdown_item}`} onClick={clickProfile}>
                 Profile
               </button>
-              <hr/>
+              <hr className="my-1"/>
               <button className={`dashboard-item ${Styles.dropdown_item}`} onClick={clickLogout}>
                 Logout
               </button>
