@@ -23,7 +23,7 @@ const Poster = () => {
   useEffect(() => {
     const getAllMovies = async () => {
       try {
-        const response = await axios.get(`http://10.145.80.49:8080/movies`, {
+        const response = await axios.get(`http://10.145.54.6:8080/movies`, {
           headers: {
             Authorization: `${localStorage.getItem("token")}`,
           },
@@ -44,7 +44,7 @@ const Poster = () => {
 
   return (
     <>
-      <div className="head">
+      <div className="head" onClick={()=>{navigate(-1)}}>
         <ArrowBack className=" back-btn" />
       </div>
       {film && (
@@ -101,10 +101,19 @@ const Poster = () => {
                 <h3 className="title">Overview : </h3>
                 <h6 className="content">{film.fullplot}</h6>
               </div>
-              {<div className="cast">
-                <h3 className="title">Cast : &nbsp;</h3>
-                <h5 className="cast_name">{film.cast}</h5>
-              </div>}
+              {film.cast ? (
+                <div className="cast mt-3">
+                  <h3 className="title">Cast : &nbsp;</h3>
+                  <h5 className="cast_name">
+                    {film.cast.map((name) => (
+                      <span>
+                        {name}
+                        {" | "}
+                      </span>
+                    ))}
+                  </h5>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

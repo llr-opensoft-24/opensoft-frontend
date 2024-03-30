@@ -4,16 +4,15 @@ import { SDFormat } from "../../../helpers/DateHelper";
 import { useNavigate } from "react-router-dom";
 import img from "../../../assets/img.webp";
 
-const SearchResults = ({ searchResults, setOpen }) => {
+const SearchResults = ({ searchResults }) => {
   const router = useNavigate();
   const onListClickHandler = (id) => {
     console.log(id);
-    // router(`/poster?id=${id}`);
-    setOpen(true);
+    router(`/poster?id=${id}`);
   };
   return (
     <div
-      className={`${Styles.search_box} d-flex flex-column position-absolute mt-1`}
+      className={`${Styles.search_box} d-flex flex-column text-dark position-absolute mt-1`}
     >
       {searchResults.length > 0 ? (
         searchResults.map((result, index) => (

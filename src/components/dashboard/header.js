@@ -3,30 +3,15 @@ import Styles from "./Dashboard.module.css";
 import SearchResults from "../header/components/SearchResults";
 import axios from "axios";
 import img from "../../assets/img.webp";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Poster from "../movieposter/poster";
+import { useMovie } from "../../context/MovieContext";
 
 const DashHeader = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [filmData, setFilmData] = useState([]);
-  useEffect(() => {
-    const getAllMovies = async () => {
-      try {
-        const response = await axios.get(`http://10.145.80.49:8080/movies`, {
-          headers: {
-            Authorization: `${localStorage.getItem("token")}`,
-          },
-        });
-        if (response.data && response.data.data) {
-          setFilmData(response.data.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getAllMovies();
-  }, []);
+  const navigate = useNavigate();
+  const {isLoading, filmData}= useMovie();
 
   const onSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -37,7 +22,7 @@ const DashHeader = () => {
       try {
         if (searchTerm.length > 1) {
           const response = await axios.get(
-            `http://10.145.80.49:8080/search?q=${searchTerm}`,
+            `http://10.145.54.6:8080/search?q=${searchTerm}`,
             {
               headers: {
                 Authorization: `${localStorage.getItem("token")}`,
@@ -62,13 +47,16 @@ const DashHeader = () => {
     window.location.href = "/login";
   };
 
-  const [open, setOpen] = useState(false);
+  const clickPlans = (e) => {
+    e.preventDefault();
+    navigate("/payment");
+  };
+
   return (
     <div className={Styles.background}>
-      {open && (<Poster/>)}
       <div className="d-flex p-4 justify-content-end">
         <div className={Styles.plans}>
-          <button className="btn btn-danger" onClick={clickLogout}>
+          <button className="btn btn-danger" onClick={clickPlans}>
             Plans
           </button>
         </div>
@@ -108,7 +96,7 @@ const DashHeader = () => {
             onChange={onSearch}
           />
           {searchTerm.length >= 2 && (
-            <SearchResults searchResults={searchResults} setOpen={setOpen} />
+            <SearchResults searchResults={searchResults} />
           )}
         </div>
       </div>

@@ -23,7 +23,7 @@ const App = () => {
       <Route path='otp' element={<OtpRoute/>} />
       <Route path='forgotpassword' element={<FpForm/>}/>
       <Route path='poster' element={<Poster />} />
-      <Route path='dashboard' element= {<DashHeader />}/>
+      <Route path='dashboard' element= {<DashboardRoute />}/>
       <Route path='payment' element={<PaymentRoute/>}/>
       <Route path='player' element={<Video/>}/>
     </Routes>

@@ -125,6 +125,7 @@ const Controls = forwardRef(
       isFullScreen,
       playerContainerRef,
       onQualityChange, // Function to handle quality change
+      quality, // Current quality
       videoUrl, // Current video URL
     },
     ref
@@ -164,6 +165,7 @@ const Controls = forwardRef(
     const qualityId = qualityOpen ? "quality-popover" : undefined;
 
     const qualityOptions = ['144p','360p', '480p','720p', '1080p'];
+    
 
     return (
       <div ref={ref} className={classes.controlsWrapper}>
@@ -318,7 +320,7 @@ const Controls = forwardRef(
             className={classes.bottomIcons}
             variant="text"
           >
-            <Typography>Quality</Typography>
+            <Typography>Quality {quality}</Typography>
           </Button>
           <Popover
             open={qualityOpen}

@@ -287,37 +287,31 @@ function App() {
   const handleBufferEnd = () => {
     setBuffering(false);
   };
-
+  const [quality, setQuality] = useState("auto");
   const [videoUrl, setVideoUrl] = useState(
-    "http://10.145.80.49:8080/mongo-video?filename=testing.mp4"
+  `http://10.145.54.6:8080/video?filename=premium_720p.mp4&token=${localStorage.getItem("token")}`
   );
 
   const handleQualityChange = (quality) => {
     let newVideoUrl = "";
     let currentTime = 0; // Default to 0 if playerRef or getCurrentTime is not available
-
+    setQuality(quality); // Update quality state
     // Get the current playback time if playerRef is available
     if (playerRef && playerRef.current) {
       currentTime = playerRef.current.getCurrentTime();
     }
 
     switch (quality) {
-      case "144p":
-        newVideoUrl = "./video.mp4";
-        // setVideoUrl(newVideoUrl);
-        console.log("144p clicked");
-        console.log("inside  " + videoUrl);
-
-        break;
+      
       case "360p":
-        newVideoUrl = "./video.mp4";
+        newVideoUrl = `http://10.145.54.6:8080/video?filename=premium_360p.mp4&token=${localStorage.getItem("token")}`;
         break;
       case "480p":
         newVideoUrl =
-          "http://10.145.80.49:8000/mongo-video?filename=testing.mp4";
+          `http://10.145.54.6:8080/video?filename=premium_480p.mp4&token=${localStorage.getItem("token")}`;
         break;
       case "720p":
-        newVideoUrl = "https://example.com/video_1080p.mp4";
+        newVideoUrl = `http://10.145.54.6:8080/video?filename=premium_720p.mp4&token=${localStorage.getItem("token")}`;
         break;
 
       case "1080p":
@@ -493,6 +487,7 @@ function App() {
             // onBookmark={addBookmark}
             isFullScreen={screenful.isFullscreen}
             playerContainerRef={playerContainerRef}
+            quality={quality}
             onQualityChange={handleQualityChange}
             videoUrl={videoUrl}
           />

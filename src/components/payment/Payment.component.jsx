@@ -4,6 +4,7 @@ import axios from 'axios'
 import PricingCard from './PricingCard'
 import { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
+import { ArrowBack } from '@material-ui/icons'
 //import Razorpay from 'razorpay';
 
 const Plans = () => {
@@ -105,6 +106,9 @@ const Plans = () => {
     <>
     <div className="PricingApp">
       <div className="app-container">
+        <div className="head" onClick={()=>{navigate(-1)}}>
+        <ArrowBack className=" back-btn" />
+      </div>
         {/* Header */}
         <header>
           <h1 className="header-topic">Our Pricing Plan</h1>
