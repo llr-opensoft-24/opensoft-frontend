@@ -313,7 +313,6 @@ function App() {
       case "720p":
         newVideoUrl = `http://10.145.54.6:8080/video?filename=premium_720p.mp4&token=${localStorage.getItem("token")}`;
         break;
-
       case "1080p":
         newVideoUrl =
           "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";

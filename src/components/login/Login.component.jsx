@@ -22,7 +22,7 @@ const Login = () => {
         <button className={Styles.closeButton} onClick={handleCrossClick}>×</button>
         <h1 className="text-white text-center mb-4">{isSigningUp ? 'Sign Up' : 'Sign In'}</h1>
         {!isSigningUp && <LoginForm />}
-        {isSigningUp && <SignupForm />}
+        {isSigningUp && <SignupForm setIsSigningUp={setIsSigningUp} />}
         
         <br />
         <br />
