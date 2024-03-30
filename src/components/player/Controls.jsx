@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -111,11 +111,13 @@ const Controls = forwardRef(
       playing,
       played,
       elapsedTime,
+      film,
       totalDuration,
       onMute,
       muted,
       onVolumeSeekDown,
       onChangeDispayFormat,
+      plan,
       playbackRate,
       onPlaybackRateChange,
       onToggleFullScreen,
@@ -142,10 +144,8 @@ const Controls = forwardRef(
 
     const open = Boolean(anchorEl);
     const id = open ? "simple-popover" : undefined;
-    
 
-
-      // QUALITY CODE
+    // QUALITY CODE
     const [qualityAnchorEl, setQualityAnchorEl] = React.useState(null);
     const handleQualityClick = (event) => {
       setQualityAnchorEl(event.currentTarget);
@@ -163,9 +163,20 @@ const Controls = forwardRef(
 
     const qualityOpen = Boolean(qualityAnchorEl);
     const qualityId = qualityOpen ? "quality-popover" : undefined;
-
-    const qualityOptions = ['144p','360p', '480p','720p', '1080p'];
-    
+    const [qualityOptions, setQualityOptions] = useState([
+      "360p",
+      "480p",
+      "720p",
+    ]);
+    useEffect(() => {
+      if (localStorage.getItem("plan") === "free") {
+        setQualityOptions(["360p", "480p", "720p"]);
+      } else if (localStorage.getItem("plan") === "pro") {
+        setQualityOptions(["360p", "480p", "720p", "1080p"]);
+      } else if (localStorage.getItem("plan") === "premium") {
+        setQualityOptions(["360p", "480p", "720p", "1080p", "4K"]);
+      }
+    });
 
     return (
       <div ref={ref} className={classes.controlsWrapper}>
@@ -310,46 +321,42 @@ const Controls = forwardRef(
               </Grid>
             </Grid>
 
-            
-
             <Grid item>
-              
-            <Button
-            onClick={handleQualityClick}
-            aria-describedby={qualityId}
-            className={classes.bottomIcons}
-            variant="text"
-          >
-            <Typography>Quality {quality}</Typography>
-          </Button>
-          <Popover
-            open={qualityOpen}
-            anchorEl={qualityAnchorEl}
-            onClose={handleQualityClose}
-            id={qualityId}
-            container={isFullScreen ? playerContainerRef.current : null}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-          >
-            <Grid container direction="column-reverse">
-              {qualityOptions.map((option) => (
-                <Button
-                  key={option.id}
-                  onClick={() => handleQualitySelect(option)}
-                  variant="text"
-                >
-                  <Typography>{option}</Typography>
-                </Button>
-              ))}
-            </Grid>
-          </Popover>
-
+              <Button
+                onClick={handleQualityClick}
+                aria-describedby={qualityId}
+                className={classes.bottomIcons}
+                variant="text"
+              >
+                <Typography>Quality {quality}</Typography>
+              </Button>
+              <Popover
+                open={qualityOpen}
+                anchorEl={qualityAnchorEl}
+                onClose={handleQualityClose}
+                id={qualityId}
+                container={isFullScreen ? playerContainerRef.current : null}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                transformOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+              >
+                <Grid container direction="column-reverse">
+                  {qualityOptions.map((option) => (
+                    <Button
+                      key={option.id}
+                      onClick={() => handleQualitySelect(option)}
+                      variant="text"
+                    >
+                      <Typography>{option}</Typography>
+                    </Button>
+                  ))}
+                </Grid>
+              </Popover>
 
               <Button
                 onClick={handleClick}
@@ -359,7 +366,7 @@ const Controls = forwardRef(
               >
                 <Typography>{playbackRate}X</Typography>
               </Button>
-              
+
               <Popover
                 container={ref.current}
                 open={open}

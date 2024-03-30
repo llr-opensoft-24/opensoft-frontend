@@ -8,6 +8,7 @@ import { ArrowBack, PaymentRounded } from "@material-ui/icons";
 import { useSearch } from "../../context/SearchContext";
 import { useMovie } from "../../context/MovieContext";
 import Styles from "./poster.module.css";
+import Navbar from "../dashboard/component/Navbar";
 
 const Poster = () => {
   const { search } = useLocation();
@@ -49,16 +50,10 @@ const Poster = () => {
   }
   return (
     <>
-      <div
-        className="head"
-        onClick={() => {
-          navigate(-1);
-        }}
-      >
-        <ArrowBack className=" back-btn" />
-      </div>
       {film && (
         <div className={Styles.p_container}>
+                <Navbar/>
+
           <div className={Styles.p_content}>
             <div className={Styles.left}>
               {film.poster ? (

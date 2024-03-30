@@ -6,6 +6,7 @@ import img from "../../assets/img.webp";
 import { Link, useNavigate } from "react-router-dom";
 import { useMovie } from "../../context/MovieContext";
 import { useSearch } from "../../context/SearchContext";
+import Navbar from "./component/Navbar";
 
 const DashHeader = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -40,19 +41,7 @@ const DashHeader = () => {
 
   return (
     <div className={Styles.background}>
-      <div className="d-flex p-4 justify-content-end">
-        <div className={Styles.plans}>
-          <button className="btn btn-danger" onClick={clickPlans}>
-            Plans
-          </button>
-        </div>
-
-        <div className="sign-in-button ms-4">
-          <button className="btn btn-danger" onClick={clickLogout}>
-            Logout
-          </button>
-        </div>
-      </div>
+      <Navbar/>
       <div className={Styles.container}>
         <div className={Styles.heading}>
           <div className={Styles.flix}>
