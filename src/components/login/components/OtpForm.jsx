@@ -28,14 +28,18 @@ const OtpForm = () => {
     e.preventDefault();
     try {
         const email = userData["email"];
-        const response = await axios.post('http://10.145.54.6:8080/verifyemail', {
+        const response = await axios.post('http://10.145.80.49:8080/verifyemail', {
             email: email,
             otp : otp,
             type:"email"
         });
       console.log(response);
       if(response.data.error===null)
-      {
+      { localStorage.setItem("token",response.data.data.token);
+        localStorage.setItem("email",response.data.data.user_data.email);
+        localStorage.setItem("plan",response.data.data.user_data.plan);
+        localStorage.setItem("verified",response.data.data.user_data.verified);
+        localStorage.setItem("username",response.data.data.user_data.username);
         toast.success(response.data.message,{
           position: "bottom-right",
           autoClose: 2000,

@@ -11,6 +11,7 @@ import Styles from '../Login.module.css';
 const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [res,setRes] = useState(false);
   const [password, setPassword] = useState("");
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
@@ -44,13 +45,16 @@ const LoginForm = () => {
       return;
     }
 
+    setRes(true);
+
     try {
-      const response = await axios.post('http://10.145.54.6:8080/login', {
+      const response = await axios.post('http://10.145.80.49:8080/login', {
         email: email,
         password: password
       });
-
+      setRes(false);
       if(response.data.data.token){
+        
         dispatch(loginSuccess(response.data.data.user_data));
         dispatch(setToken(response.data.data.token));
         localStorage.setItem("token",response.data.data.token);
@@ -58,6 +62,7 @@ const LoginForm = () => {
         localStorage.setItem("email",response.data.data.user_data.email);
         localStorage.setItem("plan",response.data.data.user_data.plan);
         localStorage.setItem("verified",response.data.data.user_data.verified);
+        localStorage.setItem("username",response.data.data.user_data.username);
         toast.success('Login Successful',{
           position: "bottom-right",
           autoClose: 2000,
@@ -138,7 +143,8 @@ const LoginForm = () => {
     
         
         <button className="btn btn-danger w-100 mt-4" onClick={ctaClickHandler}>
-          Sign In
+          Sign In {res && (<i class="fa fa-spinner fa-spin"></i>)}
+
         </button>
         <div className="d-flex justify-content-end ">
         <button className="btn text-white mt-2 text-end" onClick={handleForgotPassword}>

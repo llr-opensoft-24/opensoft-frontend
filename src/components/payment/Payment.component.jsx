@@ -5,6 +5,8 @@ import PricingCard from './PricingCard'
 import { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import { ArrowBack } from '@material-ui/icons'
+import { toast } from 'react-toastify';
+import Navbar from "../dashboard/component/Navbar";
 //import Razorpay from 'razorpay';
 
 const Plans = () => {
@@ -73,6 +75,14 @@ const Plans = () => {
           if(response.data.data.verification_status){
             console.log(title);
             localStorage.setItem("plan", title);
+            toast.success('Plan Upgraded Successfully',{
+              position: "bottom-right",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+            });
             navigate('/dashboard');
           }
         })
@@ -104,7 +114,7 @@ const Plans = () => {
   };
 
   return (
-    <>
+    <><Navbar/>
       <div className="PricingApp">
         <div className="app-container">
           <header>
@@ -119,19 +129,20 @@ const Plans = () => {
               handler={redirectToHome}
             />
             <PricingCard
-              title="Pro"
-              price={"299"}
-              movies="10000+"
-              quality="1080p"
-              handler={checkoutHandler}
-            />
-            <PricingCard
               title="Premium"
               price={"499"}
               movies="All"
               quality="4k"
               handler={checkoutHandler}
             />
+            <PricingCard
+              title="Pro"
+              price={"299"}
+              movies="10000+"
+              quality="1080p"
+              handler={checkoutHandler}
+            />
+            
           </div>
         </div>
       </div>

@@ -6,11 +6,14 @@ import img from "../../assets/img.webp";
 import { Link, useNavigate } from "react-router-dom";
 import Poster from "../movieposter/poster";
 import { useMovie } from "../../context/MovieContext";
+import Navbar from "./component/Navbar";
 
 const DashHeader = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
+  const plan = localStorage.getItem("plan");
   const {isLoading, filmData}= useMovie();
 
   const onSearch = (e) => {
@@ -22,7 +25,7 @@ const DashHeader = () => {
       try {
         if (searchTerm.length > 1) {
           const response = await axios.get(
-            `http://10.145.54.6:8080/search?q=${searchTerm}`,
+            `http://10.145.80.49:8080/search?q=${searchTerm}`,
             {
               headers: {
                 Authorization: `${localStorage.getItem("token")}`,
@@ -44,6 +47,10 @@ const DashHeader = () => {
   const clickLogout = (e) => {
     e.preventDefault();
     localStorage.setItem("token", "");
+    localStorage.setItem("plan","");
+    localStorage.setItem("email","");
+    localStorage.setItem("verified","");
+    navigate("/login");
     window.location.href = "/login";
   };
 
@@ -51,22 +58,15 @@ const DashHeader = () => {
     e.preventDefault();
     navigate("/payment");
   };
+  const clickProfile = (e) => {
+    e.preventDefault();
+    navigate("/profile");
+  };
 
   return (
     <div className={Styles.background}>
-      <div className="d-flex p-4 justify-content-end">
-        <div className={Styles.plans}>
-          <button className="btn btn-danger" onClick={clickPlans}>
-            Plans
-          </button>
-        </div>
-
-        <div className="sign-in-button ms-4">
-          <button className="btn btn-danger" onClick={clickLogout}>
-            Logout
-          </button>
-        </div>
-      </div>
+      <Navbar/>
+      
       <div className={Styles.container}>
         <div className={Styles.heading}>
           <div className={Styles.flix}>

@@ -1,0 +1,44 @@
+/* profile.module.css */
+
+/* Gradient background for profile card */
+.gradient_custom {
+    background: #f6d365;
+    background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+    background: linear-gradient(to top, #ff0000, #800000);
+  }
+  
+  /* Profile card styles */
+  .profileCard {
+    border-radius: 0.5rem;
+  }
+  
+  /* Avatar styles */
+  .profileAvatar {
+    width: 50%;
+    border-radius: 50%;
+  }
+  
+  /* Information section styles */
+  .profileInfo {
+    padding: 1rem;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 992px) {
+    .profileAvatar {
+      width: 40%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .profileAvatar {
+      width: 30%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .profileAvatar {
+      width: 50%;
+    }
+  }
+  
