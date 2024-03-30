@@ -99,7 +99,7 @@ const DashHeader = () => {
                     />
                   </div>
                   <div className={Styles.m_card_body}>
-                    <h5 className={Styles.m_card_tits}>{film.title}({film.plan})</h5>
+                    <h5 className={Styles.m_card_tits}>{film.title}&nbsp;({(film.plan).toUpperCase()})</h5>
                     <p className={Styles.m_card_text}>
                       {film.year} |{" "}
                       {film.languages?.map((language, index) => (
