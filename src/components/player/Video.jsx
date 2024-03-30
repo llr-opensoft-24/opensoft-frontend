@@ -289,7 +289,7 @@ function App() {
   };
   const [quality, setQuality] = useState("auto");
   const [videoUrl, setVideoUrl] = useState(
-  `http://10.145.80.49:8080/video?filename=premium_720p.mp4&token=${localStorage.getItem("token")}`
+  `http://4.247.166.168/video?filename=premium_720p.mp4&token=${localStorage.getItem("token")}`
   );
 
   const handleQualityChange = (quality) => {
@@ -304,14 +304,14 @@ function App() {
     switch (quality) {
       
       case "360p":
-        newVideoUrl = `http://10.145.80.49:8080/video?filename=premium_360p.mp4&token=${localStorage.getItem("token")}`;
+        newVideoUrl = `http://4.247.166.168/video?filename=free_360p.mp4&token=${localStorage.getItem("token")}`;
         break;
       case "480p":
         newVideoUrl =
-          `http://10.145.80.49:8080/video?filename=premium_480p.mp4&token=${localStorage.getItem("token")}`;
+          `http://4.247.166.168/video?filename=free_480p.mp4&token=${localStorage.getItem("token")}`;
         break;
       case "720p":
-        newVideoUrl = `http://10.145.80.49:8080/video?filename=premium_720p.mp4&token=${localStorage.getItem("token")}`;
+        newVideoUrl = `http://4.247.166.168/video?filename=free_720p.mp4&token=${localStorage.getItem("token")}`;
         break;
       case "1080p":
         newVideoUrl =

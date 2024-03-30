@@ -59,7 +59,7 @@ const SignupForm = (props) => {
     }
 
     try {
-      const response = await axios.post('http://10.145.80.49:8080/register', {
+      const response = await axios.post('http://4.247.166.168/register', {
         username: text,
         email: email,
         password: password

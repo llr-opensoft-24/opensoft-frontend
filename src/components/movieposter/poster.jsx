@@ -2,18 +2,23 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faClock, faPlay } from "@fortawesome/free-solid-svg-icons";
 import img from "../../assets/img.webp";
-import "./poster.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import Image from "../../helpers/Image";
-import { ArrowBack } from "@material-ui/icons";
+import { ArrowBack, PaymentRounded } from "@material-ui/icons";
+import { useSearch } from "../../context/SearchContext";
+import { useMovie } from "../../context/MovieContext";
+import Styles from "./poster.module.css";
 
 const Poster = () => {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const id = params.get("id");
+  const type = params.get("type");
   const [film, setFilm] = useState(null);
   const navigate = useNavigate();
+  const { selectedMovie } = useSearch();
+  const { filmData } = useMovie();
+  const plan = localStorage.getItem("plan");
 
   useEffect(() => {
     if (localStorage.getItem("token") === "") {
@@ -21,59 +26,78 @@ const Poster = () => {
     }
   }, []);
   useEffect(() => {
-    const getAllMovies = async () => {
+    const getMovie = async () => {
       try {
-        const response = await axios.get(`http://10.145.80.49:8080/movies`, {
-          headers: {
-            Authorization: `${localStorage.getItem("token")}`,
-          },
-        });
-        if (response.data && response.data.data) {
-          const movies = response.data.data;
-          console.log(movies);
-          setFilm(movies.find((movie) => movie.imdb.id == id));
-          console.log(film);
+        if (type == "s") {
+          await setFilm(selectedMovie);
+          console.log(selectedMovie);
+        } else if (type == "p") {
+          await setFilm(filmData && filmData.find((m) => m.imdb.id == id));
+          console.log(filmData);
         }
       } catch (error) {
         console.log(error);
       }
     };
-    getAllMovies();
+    getMovie();
     console.log(film ? film : "No film found");
   }, [id]);
 
   return (
     <>
-      <div className="head" onClick={()=>{navigate(-1)}}>
+      <div
+        className="head"
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
         <ArrowBack className=" back-btn" />
       </div>
       {film && (
-        <div className="p_container">
-          <div className="p_content">
-            <div className="left">
+        <div className={Styles.p_container}>
+          <div className={Styles.p_content}>
+            <div className={Styles.left}>
               {film.poster ? (
-                <Image src={film.poster} className={"posterImg"} />
+                <Image src={film.poster} className={Styles.posterImg} />
               ) : (
                 <Image src={img} />
               )}
-              <div className="btn">
-                <button>
-                  <FontAwesomeIcon icon={faPlay} /> &nbsp;Watch Now
-                </button>
-              </div>
             </div>
-            <div className="right">
-              <div className="p_title">
+            <div className={Styles.right}>
+              <div className={Styles.p_title}>
                 {film.title} ({film.year})
               </div>
-              <div className="tags">
+              <div className={Styles.tags}>
                 {film.genres
-                  ? film.genres.map((genre) => {
-                      return <span className="genre">{genre}</span>;
+                  ? film.genres.map((genre,index) => {
+                      return <span key={index} className={Styles.genre}>{genre}</span>;
                     })
                   : null}
               </div>
-              <div className="year">
+              <div className={`mt-3 rounded-1 ${Styles.btn}`}>
+                { (film.plan == "free" ||
+                  (film.plan == "pro" && plan != "free") ||
+                  (film.plan == "premium" && plan == "premium")) && (
+                  <button>
+                    <FontAwesomeIcon icon={faPlay} onClick={()=>navigate('/player')}/> &nbsp;Watch Now
+                  </button>
+                )}
+                {
+                  (film.plan == "pro" && plan == "free") && (
+                    <button onClick={()=>navigate('/payment')}>
+                      <PaymentRounded/>&nbsp;Upgrade to Pro
+                    </button>
+                  )
+                }
+                {
+                  (film.plan == "premium" && plan != "premium") && (
+                    <button onClick={()=>navigate('/payment')}>
+                      <PaymentRounded/>&nbsp;Upgrade to Premium
+                    </button>
+                  )
+                }
+              </div>
+              <div className={Styles.year}>
                 <p>
                   <span>
                     <FontAwesomeIcon icon={faClock} /> {film.runtime}
@@ -92,19 +116,20 @@ const Poster = () => {
                   </span>
                   <span>&nbsp;|&nbsp;</span>
                   <span>
-                    &nbsp; <FontAwesomeIcon icon={faStar} className="star" />{" "}
+                    &nbsp;{" "}
+                    <FontAwesomeIcon icon={faStar} className={Styles.star} />{" "}
                     {film.imdb?.rating} &nbsp;
                   </span>{" "}
                 </p>
               </div>
-              <div className="plot">
-                <h3 className="title">Overview : </h3>
-                <h6 className="content">{film.fullplot}</h6>
+              <div className={Styles.plot}>
+                <h3 className={Styles.title}>Overview : </h3>
+                <h6 className={Styles.content}>{film.fullplot}</h6>
               </div>
               {film.cast ? (
-                <div className="cast mt-3">
-                  <h3 className="title">Cast : &nbsp;</h3>
-                  <h5 className="cast_name">
+                <div className={`${Styles.cast} mt-3`}>
+                  <h3 className={Styles.title}>Cast : &nbsp;</h3>
+                  <h5 className={Styles.cast_name}>
                     {film.cast.map((name) => (
                       <span>
                         {name}

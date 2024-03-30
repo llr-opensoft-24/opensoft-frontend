@@ -48,12 +48,12 @@ const LoginForm = () => {
     setRes(true);
 
     try {
-      const response = await axios.post('http://10.145.80.49:8080/login', {
+      const response = await axios.post('http://4.247.166.168/login', {
         email: email,
         password: password
       });
       setRes(false);
-      if(response.data.data.token){
+      if(response.data && response.data.data.token){
         
         dispatch(loginSuccess(response.data.data.user_data));
         dispatch(setToken(response.data.data.token));
