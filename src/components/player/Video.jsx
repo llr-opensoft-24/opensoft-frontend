@@ -319,7 +319,6 @@ function App() {
       case "720p":
         newVideoUrl = "https://example.com/video_1080p.mp4";
         break;
-
       case "1080p":
         newVideoUrl =
           "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
