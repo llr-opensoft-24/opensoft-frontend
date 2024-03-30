@@ -173,7 +173,7 @@ const Controls = forwardRef(
         setQualityOptions(["360p", "480p", "720p"]);
       } else if (localStorage.getItem("plan") === "pro") {
         setQualityOptions(["360p", "480p", "720p", "1080p"]);
-      } else if (localStorage.getItem("plan") === "premium") {
+      } else if (localStorage.getItem("plan") === "Premium") {
         setQualityOptions(["360p", "480p", "720p", "1080p", "4K"]);
       }
     });
@@ -196,7 +196,7 @@ const Controls = forwardRef(
           >
             <Grid item>
               <Typography variant="h5" style={{ color: "#fff" }}>
-                Video Title
+                {film?.title || "Movie"}
               </Typography>
             </Grid>
             {/* <Grid item>

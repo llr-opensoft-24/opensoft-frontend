@@ -148,4 +148,10 @@ input {
 
 .dropdown_item{
   margin: 7px 0;
+  background: none;
+  border: none;
+  color: white;
+  font-weight: 500;
+  font-size: medium;
+  letter-spacing: 0.75px;
 }
