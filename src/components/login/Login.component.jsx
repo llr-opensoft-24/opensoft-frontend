@@ -11,7 +11,7 @@ import SignupForm from './components/SignupForm';
 const Login = () => {
   const [isSigningUp, setIsSigningUp] = useState(false);
   const navigate = useNavigate();
-
+  
   const handleCrossClick = () => {
     navigate('/');
   };

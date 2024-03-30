@@ -1,9 +1,11 @@
-import React from 'react';
-import './Payment.css';
-import axios from 'axios';
-import PricingCard from './PricingCard';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react'
+import './Payment.css'
+import axios from 'axios'
+import PricingCard from './PricingCard'
+import { useState } from 'react'
+import {useNavigate} from 'react-router-dom'
+import { ArrowBack } from '@material-ui/icons'
+//import Razorpay from 'razorpay';
 
 const Plans = () => {
   const navigate = useNavigate();

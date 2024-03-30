@@ -1,45 +1,46 @@
-.list > .row {
-    flex-direction: column;
-    margin: 0;
-  }
-  
-  .list .title {
-    margin: 30px;
-    margin-bottom: 0;
-  }
-  
-  .list .row__posters {
-    display: flex;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    padding: 20px 0 20px 0;
-  }
-  
-  .list .row__posters::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .list .row__poster {
-    margin-right: 10px;
-    max-height: 100px;
-    object-fit: contain;
-    opacity: 0.8;
-    transition: transform 0.45s;
+  .m_container {
+    margin: 10px;
     width: 100%;
   }
-  
-  .list .row__poster:hover {
-    cursor: pointer;
-    opacity: 1;
-    transform: scale(1.08);
+
+  .m_heading{
+    font-size: 3rem;
+    font-weight: 500;
+    color: #fff;
+    margin: 1rem;
+    text-align: center;
+  }
+
+  .movie_page {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .m_card {
+    width: min-content;
+    height: 450px;
+  }
+
+  .m_card_tits {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #fff;
+    margin-top: 5px;
+    text-align: center;
+    text-decoration: none;
   }
   
-  .list .row__posterLarge {
-    max-height: 250px;
+  .m_card_text {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #c6c6c6;
+    margin-top: 5px;
+    text-decoration: none;
+    text-align: center;
   }
-  
-  .list .row__posterLarge:hover {
-    opacity: 1;
-    transform: scale(1.09);
+  .m_card_body{
+    margin-top: 1rem;
   }
-  
