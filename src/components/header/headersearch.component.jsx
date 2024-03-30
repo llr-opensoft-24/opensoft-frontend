@@ -12,6 +12,7 @@ const Header = () => {
   const [searchResults, setSearchResults] = useState([]); // [ {id: 1, title: "movie1"}, {id: 2, title: "movie2"}
   const clickLogout = (e) => {
     e.preventDefault();
+    console.log("Hello");
     localStorage.setItem("token", "");
     localStorage.clear();
     navigate("/login");
@@ -25,7 +26,7 @@ const Header = () => {
     const getResponse = async () => {
       try {
         if (searchTerm.length > 1) {
-          const response = await axios.get(`http://10.145.54.6:8080/search?q=${searchTerm}`, {
+          const response = await axios.get(`http://10.145.80.49:8080/search?q=${searchTerm}`, {
             headers: {
               Authorization: `${localStorage.getItem("token")}`,
             },

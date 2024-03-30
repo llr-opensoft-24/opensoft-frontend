@@ -12,7 +12,7 @@ const PricingCard = ({ title, price, movies, quality, handler}) => {
         <div className="card-prices">₹ {price}</div>
         <div className="card-users-allowed">Quality : {quality}</div>
       </div>
-      <button className="card-btn" onClick={()=>handler(price,title)}>UPGARDE</button>
+      <button className="card-btn" onClick={()=>handler(price,title)}>UPGRADE</button>
     </div>
   );
 };

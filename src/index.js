@@ -18,8 +18,10 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
+      <MovieProvider>
           <ToastContainer />
           <App />
+      </MovieProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
