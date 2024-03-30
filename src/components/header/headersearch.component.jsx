@@ -12,6 +12,7 @@ const Header = () => {
   const [searchResults, setSearchResults] = useState([]); // [ {id: 1, title: "movie1"}, {id: 2, title: "movie2"}
   const clickLogout = (e) => {
     e.preventDefault();
+    console.log("Hello");
     localStorage.setItem("token", "");
     localStorage.clear();
     navigate("/login");

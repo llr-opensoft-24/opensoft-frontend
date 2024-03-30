@@ -16,12 +16,15 @@
 }
 
 .login .holder {
-  padding: 5vw; 
+  border-radius: 16px;
+  padding: 5vw 2vw; 
+  padding-bottom: 3vw;
   background-color: black;
   min-height: 460px;
   width: 450px;
   position: absolute;
   z-index: 1;
+
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); 
@@ -68,8 +71,8 @@
 
 .closeButton {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: 20px;
   background: transparent;
   border: none;
   color: white;

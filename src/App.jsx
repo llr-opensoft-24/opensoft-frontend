@@ -11,7 +11,7 @@ import Poster from './components/movieposter/poster';
 import DashHeader from './components/dashboard/header';
 import PaymentRoute from './routes/payment/payment.route';
 import Video from './components/player/Video';
-
+import Profile from './routes/profile/profile.route';
 const App = () => {
   
   return (
@@ -19,6 +19,7 @@ const App = () => {
       <Route path="/" element={<IndexRoute/>} />
       <Route path='login' element={<LoginRoute />} />
       <Route path='register' element={<RegisterRoute />} />
+      <Route path='profile' element={<Profile/>}/>
       <Route path='xxxx' element={<DashboardRoute />} />
       <Route path='otp' element={<OtpRoute/>} />
       <Route path='forgotpassword' element={<FpForm/>}/>
