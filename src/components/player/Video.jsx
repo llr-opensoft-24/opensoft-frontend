@@ -14,8 +14,8 @@ import { useLocation, useParams } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   playerWrapper: {
     width: "100%",
-
     position: "relative",
+    marginTop: "4.5%"
   },
 
   controlsWrapper: {
@@ -167,7 +167,6 @@ function App() {
   const {filmData}=useMovie();
   const film = (filmData.find((movie)=> movie.imdb.id==id));
 
-
   const playerRef = useRef(null);
   const playerContainerRef = useRef(null);
   const controlsRef = useRef(null);
@@ -283,7 +282,7 @@ function App() {
   };
   const [quality, setQuality] = useState("480p");
   const [videoUrl, setVideoUrl] = useState(
-  `http://4.247.166.168/video?filename=${film.plan}_480p.mp4&token=${localStorage.getItem("token")}`
+  `http://4.247.166.168/video?filename=${film?.plan || "free"}_480p.mp4&token=${localStorage.getItem("token")}`
   );
 
   const handleQualityChange = (quality) => {
@@ -343,7 +342,7 @@ function App() {
 
   return (
     <>
-      <Container maxWidth="md">
+      <Container style={{display: "contents"}} maxWidth="md">
         <div
           onMouseMove={handleMouseMove}
           onMouseLeave={hanldeMouseLeave}
@@ -414,8 +413,8 @@ function App() {
               {/* Loading... */}
               <iframe
                 src="https://giphy.com/embed/uIJBFZoOaifHf52MER"
-                width="480"
-                height="439"
+                width="50"
+                height="49"
                 frameBorder="0"
                 class="giphy-embed"
                 allowFullScreen
@@ -450,6 +449,7 @@ function App() {
             // onQualityChange = {handleQuality}
             onToggleFullScreen={toggleFullScreen}
             volume={volume}
+            film={film}
             // onBookmark={addBookmark}
             isFullScreen={screenful.isFullscreen}
             playerContainerRef={playerContainerRef}
