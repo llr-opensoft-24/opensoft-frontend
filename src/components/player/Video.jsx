@@ -1,35 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
-import { findDOMNode } from "react-dom";
-
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import ReactPlayer from "react-player";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 
 import Slider from "@material-ui/core/Slider";
 import Tooltip from "@material-ui/core/Tooltip";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import VolumeUp from "@material-ui/icons/VolumeUp";
-import VolumeDown from "@material-ui/icons/VolumeDown";
-import VolumeMute from "@material-ui/icons/VolumeOff";
-import FullScreen from "@material-ui/icons/Fullscreen";
-import Popover from "@material-ui/core/Popover";
 import screenful from "screenfull";
 import Controls from "./Controls";
+import { useMovie } from "../../context/MovieContext";
+import { useSearch } from "../../context/SearchContext";
+import { useLocation, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   playerWrapper: {
     width: "100%",
 
     position: "relative",
-    // "&:hover": {
-    //   "& $controlsWrapper": {
-    //     visibility: "visible",
-    //   },
-    // },
   },
 
   controlsWrapper: {
@@ -174,6 +160,14 @@ function App() {
     //   quality : "auto"
   });
 
+
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  const id = params.get("id");
+  const {filmData}=useMovie();
+  const film = (filmData.find((movie)=> movie.imdb.id==id));
+
+
   const playerRef = useRef(null);
   const playerContainerRef = useRef(null);
   const controlsRef = useRef(null);
@@ -287,9 +281,9 @@ function App() {
   const handleBufferEnd = () => {
     setBuffering(false);
   };
-  const [quality, setQuality] = useState("auto");
+  const [quality, setQuality] = useState("480p");
   const [videoUrl, setVideoUrl] = useState(
-  `http://4.247.166.168/video?filename=premium_720p.mp4&token=${localStorage.getItem("token")}`
+  `http://4.247.166.168/video?filename=${film.plan}_480p.mp4&token=${localStorage.getItem("token")}`
   );
 
   const handleQualityChange = (quality) => {
@@ -304,61 +298,34 @@ function App() {
     switch (quality) {
       
       case "360p":
-        newVideoUrl = `http://4.247.166.168/video?filename=free_360p.mp4&token=${localStorage.getItem("token")}`;
+        newVideoUrl = `http://4.247.166.168/video?filename=${film.plan}_360p.mp4&token=${localStorage.getItem("token")}`;
         break;
       case "480p":
         newVideoUrl =
-          `http://4.247.166.168/video?filename=free_480p.mp4&token=${localStorage.getItem("token")}`;
+          `http://4.247.166.168/video?filename=${film.plan}_480p.mp4&token=${localStorage.getItem("token")}`;
         break;
       case "720p":
-        newVideoUrl = `http://4.247.166.168/video?filename=free_720p.mp4&token=${localStorage.getItem("token")}`;
+        newVideoUrl = `http://4.247.166.168/video?filename=${film.plan}_720p.mp4&token=${localStorage.getItem("token")}`;
         break;
       case "1080p":
         newVideoUrl =
-          "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
-        console.log("1080p clicked");
-        // console.log("in 1080p" + videoUrl)
+          `http://4.247.166.168/video?filename=${film.plan}_720p.mp4&token=${localStorage.getItem("token")}`;
         break;
       default:
-        newVideoUrl = videoUrl; // Keep the current URL if quality is not specified
+        newVideoUrl = videoUrl; 
         console.log("default is runned");
     }
-    setVideoUrl(newVideoUrl); // Update video URL state
+    setVideoUrl(newVideoUrl); 
     console.log("outside  " + videoUrl);
 
     if (playerRef && playerRef.current && videoUrl !== newVideoUrl) {
-      setState({ ...state, seeking: true }); // Set seeking to true temporarily
+      setState({ ...state, seeking: true });
       setTimeout(() => {
         playerRef.current.seekTo(currentTime);
-        setState({ ...state, seeking: false }); // Set seeking back to false after seeking
-      }, 1000); // Delay the seek operation to ensure the new video is loaded
+        setState({ ...state, seeking: false }); 
+      }, 1000);
     }
   };
-
-  // const addBookmark = () => {
-  //   const canvas = canvasRef.current;
-  //   canvas.width = 160;
-  //   canvas.height = 90;
-  //   const ctx = canvas.getContext("2d");
-
-  //   ctx.drawImage(
-  //     playerRef.current.getInternalPlayer(),
-  //     0,
-  //     0,
-  //     canvas.width,
-  //     canvas.height
-  //   );
-  //   const dataUri = canvas.toDataURL();
-  //   canvas.width = 0;
-  //   canvas.height = 0;
-  //   const bookmarksCopy = [...bookmarks];
-  //   bookmarksCopy.push({
-  //     time: playerRef.current.getCurrentTime(),
-  //     display: format(playerRef.current.getCurrentTime()),
-  //     image: dataUri,
-  //   });
-  //   setBookmarks(bookmarksCopy);
-  // };
 
   const currentTime =
     playerRef && playerRef.current

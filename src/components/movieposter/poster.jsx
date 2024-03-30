@@ -43,6 +43,10 @@ const Poster = () => {
     console.log(film ? film : "No film found");
   }, [id]);
 
+  const watchNowHandler=()=>{
+    navigate(`/player?id=${film.imdb.id}`);
+    console.log("player")
+  }
   return (
     <>
       <div
@@ -78,8 +82,8 @@ const Poster = () => {
                 { (film.plan == "free" ||
                   (film.plan == "pro" && plan != "free") ||
                   (film.plan == "premium" && plan == "premium")) && (
-                  <button>
-                    <FontAwesomeIcon icon={faPlay} onClick={()=>navigate('/player')}/> &nbsp;Watch Now
+                  <button onClick={watchNowHandler}>
+                    <FontAwesomeIcon icon={faPlay}/> &nbsp;Watch Now
                   </button>
                 )}
                 {
