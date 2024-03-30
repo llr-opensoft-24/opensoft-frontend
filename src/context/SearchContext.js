@@ -11,7 +11,7 @@ const SearchProvider = ({ children }) => {
   const searchMovies = async (query) => {
     try {
       const response = await axios.get(
-        `http://4.247.166.168/search?q=${query}`,
+        `http://localhost:8000/search?q=${query}`,
         {
           headers: {
             Authorization: `${localStorage.getItem("token")}`,

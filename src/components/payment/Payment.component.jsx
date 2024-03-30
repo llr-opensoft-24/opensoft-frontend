@@ -24,7 +24,7 @@ const Plans = () => {
     try {
       const plan = title.toLowerCase();
 
-      const response = await axios.post(`http://4.247.166.168/order?amount=${amount}&plan=${plan}`,{}, {
+      const response = await axios.post(`http://localhost:8000/order?amount=${amount}&plan=${plan}`,{}, {
         headers:{
           Authorization : `${localStorage.getItem("token")}`,
         }
@@ -65,7 +65,7 @@ const Plans = () => {
           razorpay_signature : response.razorpay_signature
         };
 
-        axios.post(`http://4.247.166.168/verify`,send_data,{ 
+        axios.post(`http://localhost:8000/verify`,send_data,{ 
           headers: {
             'Content-Type': 'application/json',
             'Authorization': token

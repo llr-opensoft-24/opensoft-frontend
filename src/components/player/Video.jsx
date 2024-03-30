@@ -283,7 +283,7 @@ function App() {
   };
   const [quality, setQuality] = useState("480p");
   const [videoUrl, setVideoUrl] = useState(
-  `http://4.247.166.168/video?filename=${film?.plan || "free"}_480p.mp4&token=${localStorage.getItem("token")}`
+  `http://localhost:8000/video?filename=${film?.plan || "free"}_480p.mp4&token=${localStorage.getItem("token")}`
   );
 
   const handleQualityChange = (quality) => {
@@ -298,22 +298,22 @@ function App() {
     switch (quality) {
       
       case "360p":
-        newVideoUrl = `http://4.247.166.168/video?filename=${film.plan}_360p.mp4&token=${localStorage.getItem("token")}`;
+        newVideoUrl = `http://localhost:8000/video?filename=${film?.plan || "free"}_360p.mp4&token=${localStorage.getItem("token")}`;
         break;
       case "480p":
         newVideoUrl =
-          `http://4.247.166.168/video?filename=${film.plan}_480p.mp4&token=${localStorage.getItem("token")}`;
+          `http://localhost:8000/video?filename=${film?.plan || "free"}_480p.mp4&token=${localStorage.getItem("token")}`;
         break;
       case "720p":
-        newVideoUrl = `http://4.247.166.168/video?filename=${film.plan}_720p.mp4&token=${localStorage.getItem("token")}`;
+        newVideoUrl = `http://localhost:8000/video?filename=${film?.plan || "free"}_720p.mp4&token=${localStorage.getItem("token")}`;
         break;
       case "1080p":
         newVideoUrl =
-          `http://4.247.166.168/video?filename=${film.plan}_1080p.mp4&token=${localStorage.getItem("token")}`;
+          `http://localhost:8000/video?filename=${film?.plan || "free"}_1080p.mp4&token=${localStorage.getItem("token")}`;
         break;
       case "4K":
         newVideoUrl =
-          `http://4.247.166.168/video?filename=${film.plan}_4K.mp4&token=${localStorage.getItem("token")}`;
+          `http://localhost:8000/video?filename=${film?.plan || "free"}_4K.mp4&token=${localStorage.getItem("token")}`;
         break;
       default:
         newVideoUrl = videoUrl; 

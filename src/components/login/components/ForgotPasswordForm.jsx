@@ -36,7 +36,7 @@ const FpForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://4.247.166.168/forgotpassword', {
+      const response = await axios.post('http://localhost:8000/forgotpassword', {
         email: email,
 
       });
@@ -70,7 +70,7 @@ const FpForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://4.247.166.168/verifyemail', {
+      const response = await axios.post('http://localhost:8000/verifyemail', {
         email: email,
         otp: otp,
         type: "password"
@@ -110,7 +110,7 @@ const FpForm = () => {
     }
 
     try {
-      const response = await axios.post('http://4.247.166.168/resetpassword', {
+      const response = await axios.post('http://localhost:8000/resetpassword', {
         email: email,
         password: password
       });

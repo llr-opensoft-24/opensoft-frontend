@@ -8,7 +8,7 @@ const MovieProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const fetchMovies= async () => {
     try {
-      const response = await axios.get(`http://4.247.166.168/movies`,{
+      const response = await axios.get(`http://localhost:8000/movies`,{
         headers: {
           Authorization: `${localStorage.getItem("token")}`,
         }
