@@ -28,7 +28,7 @@
 .left {
     flex-shrink: 0;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
 }
@@ -42,8 +42,14 @@
 .btn button {
     padding: 0.8rem 2.2rem;
     cursor: pointer;
-    transform: translateY(-35px);
-    
+    border-radius: 8px;
+    border: none;
+}
+
+.btn button:hover {
+    background-color: rgba(129, 142, 255, 0.103);
+    color: white;
+    border: 1px solid white;
 }
 
 .star {
