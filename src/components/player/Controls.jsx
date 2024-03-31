@@ -177,7 +177,7 @@ const Controls = forwardRef(
       } else if (localStorage.getItem("plan").toLowerCase() === "premium") {
         setQualityOptions(["360p", "480p", "720p", "1080p", "4K"]);
       }
-    });
+    }, []);
 
     return (
       <div ref={ref} className={classes.controlsWrapper}>
@@ -250,41 +250,44 @@ const Controls = forwardRef(
             style={{ padding: 16 }}
           >
             <Grid container spacing={2} style={{ position: 'relative' }}>
-  <Grid item xs={12} style={{ position: 'relative' }}>
-    <PrettoSlider
-      min={0}
-      max={100}
-      ValueLabelComponent={(props) => (
-        <ValueLabelComponent {...props} value={elapsedTime} />
-      )}
-      aria-label="custom thumb label"
-      value={played * 100}
-      onChange={onSeek}
-      onMouseDown={onSeekMouseDown}
-      onChangeCommitted={onSeekMouseUp}
-      // onDuration={onDuration}
-    />
-  </Grid>
-  <Grid item xs={12} style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}>
-    <PrettoSlider
-      disabled
-      min={0}
-      max={100}
-      ValueLabelComponent={(props) => (
-        <ValueLabelComponent {...props} value={elapsedTime} />
-      )}
-      aria-label="custom thumb label"
-      value={loaded * 100}
-      onChange={onSeek}
-      onMouseDown={onSeekMouseDown}
-      onChangeCommitted={onSeekMouseUp}
-      style={{ opacity: 0.3 }} // Adjust opacity as needed
-      // This slider will represent the loaded progress
-      // Use the 'loaded' variable to determine the value
-      // You may want to style it differently to indicate it's not interactive
-    />
-  </Grid>
-</Grid>
+
+                <Grid item xs={12} style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}>
+                    <PrettoSlider
+                        disabled
+                        min={0}
+                        max={100}
+                        ValueLabelComponent={(props) => (
+                            <ValueLabelComponent {...props} value={elapsedTime} />
+                        )}
+                        aria-label="custom thumb label"
+                        value={loaded * 100}
+                        onChange={onSeek}
+                        onMouseDown={onSeekMouseDown}
+                        onChangeCommitted={onSeekMouseUp}
+                        // This slider will represent the loaded progress
+                        // Use the 'loaded' variable to determine the value
+                        // You may want to style it differently to indicate it's not interactive
+                        style={{ opacity: 0.5 }} // Adjust opacity as needed
+                    />
+                </Grid>
+
+                <Grid item xs={12} style={{ position: 'relative' }}>
+                    <PrettoSlider
+                        min={0}
+                        max={100}
+                        ValueLabelComponent={(props) => (
+                            <ValueLabelComponent {...props} value={elapsedTime} />
+                        )}
+                        aria-label="custom thumb label"
+                        value={played * 100}
+                        onChange={onSeek}
+                        onMouseDown={onSeekMouseDown}
+                        onChangeCommitted={onSeekMouseUp}
+                        style={{ opacity: 0.7 }} // Adjust opacity as needed
+                        // onDuration={onDuration}
+                    />
+                </Grid>
+            </Grid>
 
             <Grid item>
               <Grid container alignItems="center">
