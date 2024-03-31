@@ -149,9 +149,9 @@ function App() {
     playing: true,
     controls: false,
     light: false,
-
-    muted: true,
+    muted: false,
     played: 0,
+    loaded: 0,
     duration: 0,
     playbackRate: 1.0,
     volume: 1,
@@ -181,6 +181,7 @@ function App() {
     playbackRate,
     pip,
     played,
+    loaded,
     seeking,
     volume,
     //  quality
@@ -421,7 +422,7 @@ function App() {
                 width="100"
                 height="109"
                 frameBorder="0"
-                class="giphy-embed"
+                className="giphy-embed"
                 allowFullScreen
               ></iframe>
               <p>
@@ -441,6 +442,7 @@ function App() {
             onFastForward={handleFastForward}
             playing={playing}
             played={played}
+            loaded={loaded}
             elapsedTime={elapsedTime}
             totalDuration={totalDuration}
             onMute={hanldeMute}
