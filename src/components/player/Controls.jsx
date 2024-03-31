@@ -110,6 +110,7 @@ const Controls = forwardRef(
       onFastForward,
       playing,
       played,
+      loaded,
       elapsedTime,
       film,
       totalDuration,
@@ -183,14 +184,14 @@ const Controls = forwardRef(
         <Grid
           container
           direction="column"
-          justify="space-between"
+          justifyContent="space-between"
           style={{ flexGrow: 1 }}
         >
           <Grid
             container
             direction="row"
             alignItems="center"
-            justify="space-between"
+            justifyContent="space-between"
             // style
             style={{ padding: 16 }}
           >
@@ -210,7 +211,7 @@ const Controls = forwardRef(
               </Button>
             </Grid> */}
           </Grid>
-          <Grid container direction="row" alignItems="center" justify="center">
+          <Grid container direction="row" alignItems="center" justifyContent="center">
             <IconButton
               onClick={onRewind}
               className={classes.controlIcons}
@@ -244,25 +245,46 @@ const Controls = forwardRef(
           <Grid
             container
             direction="row"
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="center"
             style={{ padding: 16 }}
           >
-            <Grid item xs={12}>
-              <PrettoSlider
-                min={0}
-                max={100}
-                ValueLabelComponent={(props) => (
-                  <ValueLabelComponent {...props} value={elapsedTime} />
-                )}
-                aria-label="custom thumb label"
-                value={played * 100}
-                onChange={onSeek}
-                onMouseDown={onSeekMouseDown}
-                onChangeCommitted={onSeekMouseUp}
-                onDuration={onDuration}
-              />
-            </Grid>
+            <Grid container spacing={2} style={{ position: 'relative' }}>
+  <Grid item xs={12} style={{ position: 'relative' }}>
+    <PrettoSlider
+      min={0}
+      max={100}
+      ValueLabelComponent={(props) => (
+        <ValueLabelComponent {...props} value={elapsedTime} />
+      )}
+      aria-label="custom thumb label"
+      value={played * 100}
+      onChange={onSeek}
+      onMouseDown={onSeekMouseDown}
+      onChangeCommitted={onSeekMouseUp}
+      // onDuration={onDuration}
+    />
+  </Grid>
+  <Grid item xs={12} style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}>
+    <PrettoSlider
+      disabled
+      min={0}
+      max={100}
+      ValueLabelComponent={(props) => (
+        <ValueLabelComponent {...props} value={elapsedTime} />
+      )}
+      aria-label="custom thumb label"
+      value={loaded * 100}
+      onChange={onSeek}
+      onMouseDown={onSeekMouseDown}
+      onChangeCommitted={onSeekMouseUp}
+      style={{ opacity: 0.3 }} // Adjust opacity as needed
+      // This slider will represent the loaded progress
+      // Use the 'loaded' variable to determine the value
+      // You may want to style it differently to indicate it's not interactive
+    />
+  </Grid>
+</Grid>
 
             <Grid item>
               <Grid container alignItems="center">
@@ -348,7 +370,7 @@ const Controls = forwardRef(
                 <Grid container direction="column-reverse">
                   {qualityOptions.map((option) => (
                     <Button
-                      key={option.id}
+                      key={option}
                       onClick={() => handleQualitySelect(option)}
                       variant="text"
                     >
@@ -428,6 +450,7 @@ Controls.propTypes = {
   onMute: PropTypes.func,
   playing: PropTypes.bool,
   played: PropTypes.number,
+  loaded: PropTypes.number,
   elapsedTime: PropTypes.string,
   totalDuration: PropTypes.string,
   muted: PropTypes.bool,

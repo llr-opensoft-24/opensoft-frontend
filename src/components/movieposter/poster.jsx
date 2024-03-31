@@ -33,6 +33,10 @@ const Poster = () => {
           await setFilm(selectedMovie);
           console.log(selectedMovie);
         } else if (type == "p") {
+            filmData.find((m) => {
+                console.log(m.imdb.id, id, m.imdb.id == id);
+                return m.imdb.id == id;
+            });
           await setFilm(filmData && filmData.find((m) => m.imdb.id == id));
           console.log(filmData);
         }
@@ -41,13 +45,13 @@ const Poster = () => {
       }
     };
     getMovie();
-    console.log(film ? film : "No film found");
-  }, [id]);
+  }, [id, filmData, selectedMovie]);
 
   const watchNowHandler=()=>{
     navigate(`/player?id=${film.imdb.id}`);
     console.log("player")
   }
+  
   return (
     <>
       {film && (
@@ -130,7 +134,7 @@ const Poster = () => {
                   <h3 className={Styles.title}>Cast : &nbsp;</h3>
                   <h5 className={Styles.cast_name}>
                     {film.cast.map((name) => (
-                      <span>
+                      <span key={name}>
                         {name}
                         {" | "}
                       </span>

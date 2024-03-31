@@ -143,7 +143,7 @@ const LoginForm = () => {
     
         
         <button className="btn btn-danger w-100 mt-4" onClick={ctaClickHandler}>
-          Sign In {res && (<i class="fa fa-spinner fa-spin"></i>)}
+          Sign In {res && (<i className="fa fa-spinner fa-spin"></i>)}
 
         </button>
         <div className="d-flex justify-content-end ">
