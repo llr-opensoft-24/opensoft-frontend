@@ -282,9 +282,9 @@ function App() {
   const handleBufferEnd = () => {
     setBuffering(false);
   };
-  const [quality, setQuality] = useState("480p");
+  const [quality, setQuality] = useState("720p");
   const [videoUrl, setVideoUrl] = useState(
-  `http://localhost:8000/video?filename=${film?.plan || "free"}_480p.mp4&token=${localStorage.getItem("token")}`
+  `http://localhost:8000/video?filename=${film?.plan || "free"}_720p.mp4&token=${localStorage.getItem("token")}`
   );
 
   const handleQualityChange = (quality) => {
